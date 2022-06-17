@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/03/01 20:48:30 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:18:56 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -24,4 +24,25 @@ char	*ft_strndup(char *str, int start, int end)
 		ret[i++] = str[start++];
 	ret[i] = '\0';
 	return (ret);
+}
+
+char	*ft_strdup(char *src)
+{
+	char	*dest;
+	int		n;
+
+	n = 0;
+	while (src[n] != '\0')
+		n ++;
+	dest = malloc(sizeof(*dest) * n + 1);
+	if (!dest)
+		return (NULL);
+	n = 0;
+	while (src[n] != '\0')
+	{
+		dest[n] = src[n];
+		n ++;
+	}
+	dest[n] = '\0';
+	return (dest);
 }

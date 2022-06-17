@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 13:51:32 by rmonney           #+#    #+#             */
-/*   Updated: 2022/03/01 17:10:02 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:10:31 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -20,7 +20,7 @@ char	*readsave(int fd, char *save)
 	if (!buff)
 		return (NULL);
 	ret = 1;
-	while (ret != 0)
+	while (!(ft_strchr(save, '\n')) && ret != 0)
 	{
 		ret = read(fd, buff, BUFFER_SIZE);
 		if (ret == -1)
@@ -43,13 +43,13 @@ char	*get_line(char *save)
 	i = 0;
 	if (!save[i])
 		return (NULL);
-	while (save[i] != '\0')
+	while (save[i] != '\0' && save[i] != '\n')
 		i++;
 	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (save[i] != '\0')
+	while (save[i] != '\0' && save[i] != '\n')
 	{
 		line[i] = save[i];
 		i++;
@@ -71,7 +71,7 @@ char	*rest(char *save)
 
 	a = 0;
 	b = 0;
-	while (save[a] != '\0')
+	while (save[a] != '\0' && save[a] != '\n')
 		a++;
 	if (save[a] == '\0')
 	{

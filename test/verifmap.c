@@ -6,11 +6,11 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 18:13:02 by rmonney           #+#    #+#             */
-/*   Updated: 2022/03/01 21:25:48 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:11:09 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
-
+/*
 int	verif_cf(char *map, int i)
 {
 	int	a;
@@ -88,4 +88,4 @@ int	verifmap(char *mapfile)
 //		if (!veriflab(map))
 //			return (3);
 	return (0);
-}
+}*/

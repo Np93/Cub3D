@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/01 17:20:49 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/17 16:45:53 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -24,24 +24,18 @@
 # include "./minilibx/mlx.h"
 
 typedef struct s_data {
-	void			*mlx;
-	void			*win;
-	void			*north;
-	void			*south;
-	void			*east;
-	void			*west;
-	void			*up;
-	void			*down;
-	struct s_map	map;
-}			t_data;
-
-typedef struct s_map {
+	void	*mlx;
+	void	*win;
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	void	*up;
+	void	*down;
 	char	**map;
-	int		x;
-	int		y;
-	char	init_pos;
-	int		init_x;
-	int		init_y;
+	float	pos_x;
+	float	pos_y;
+	float	look;
 }			t_map;
 
 

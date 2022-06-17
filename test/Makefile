@@ -6,11 +6,18 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/03/01 21:12:36 by rmonney          ###   ########.fr        #
+#    Updated: 2022/06/17 17:14:07 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= get_next_line.c get_next_line_utils.c error_handle.c main.c verifmap.c utils1.c
+SRCS		= get_next_line.c\
+			  get_next_line_utils.c\
+			  error_handle.c\
+			  main.c\
+			  verifmap.c\
+			  utils1.c\
+			  get_map.c\
+			  init.c\
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -38,6 +45,8 @@ ${NAME}:	${OBJS}
 			${CC} ${FLAGS} ${INCLUDEMLX} -o ${NAME} ${OBJS} ${LMLX} ${FRAMEWORK}
 
 all:		${NAME}
+
+good:		${NAME} clean
 
 clean:		
 			${RM} ${OBJS}

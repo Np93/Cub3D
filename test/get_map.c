@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
+/*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 19:18:41 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/17 15:59:36 by rmonney          ###   ########.fr       */
+/*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
+/*   Updated: 2022/06/17 16:37:26 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "cub3D.h"
 
-void	error_handle(int error)
+char	**get_map(char *map_path)
 {
-	if (error == 0)
-		printf("Wrong number of arguments\n");
-	else if (error == 1)
-		printf("Your map should be .cub\n");
-	else if (error == 2)
-		printf("Error in the infos of map\n");
-	else if (error == 3)
-		printf("Error in the map structure\n");
-	else if (error == 4)
-		printf("Your map doesn't exists\n");
-	else if (error == 5)
-		printf("Error : fatal malloc\n");
-	exit(0);
+	char	*tmp;
+	int		fd;
+	int		i;
+	char	**ret;
+
+	ret = malloc(sizeof(char *) * 999);
+	if (!ret)
+	{
+		error_handle(5);
+		return (NULL);
+	}
+	fd = open(map_path, O_RDONLY);
+	i = 0;
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (tmp == NULL)
+			break ;
+		else
+			ret[i++] = ft_strdup(tmp);
+		free(tmp);
+	}
+	ret[i] = NULL;
+	return (ret);
 }

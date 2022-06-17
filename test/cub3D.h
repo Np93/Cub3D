@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/03/01 21:24:29 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/17 17:37:27 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -25,6 +25,27 @@
 
 # define BUFFER_SIZE 42
 
+typedef struct	s_data {
+	char	**map;
+	int		map_xsize;
+	int		map_ysize;
+	float	pos_x;
+	float	pos_y;
+	float	look;
+	void	*mlx;
+	void	*win;
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	void	*up;
+	void	*down;
+	void	*w_mmap;
+	void	*f_mmap;
+	void	*p_mmap;
+}	t_data;
+
+
 void	error_handle(int error);
 char	*get_next_line(int fd);
 int		ft_strchr(char *s, int c);
@@ -35,6 +56,10 @@ int		verif_snew(char *map, int i);
 int		verif_cf(char *map, int i);
 int		verifpath(char *path);
 char	*ft_strndup(char *str, int start, int end);
+char 	*ft_strdup(char *src);
 int		ft_atoi(char *str);
+char	**get_map(char *map_path);
+void	start(t_data *data);
+void	mlx_initer(t_data *data);
 
 #endif
