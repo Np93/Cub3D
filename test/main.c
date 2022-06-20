@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/17 17:27:08 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/20 16:57:50 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,14 @@ int	main(int ac, char **av)
 		return (0);
 	}*/
 
-	// version provisoire pour booser sur le r-casting //
+	// version provisoire pour bosser sur le r-casting //
 	data.map = get_map(av[1]);
-	data.map_xsize = ft_strlen(data.map[0]) - 1;
-	i = -1;
-	while (data.map[++i] != NULL)
-		printf("%s", data.map[i]);
-	data.map_ysize = i;
-	data.pos_x = 4;
-	data.pos_y = 3;
-//	printf("map x = %d & map y = %d\n", data.map_xsize, data.map_ysize);
 	/////////////////////////////////////////////////////
+	
+	get_map_infos(&data);
+
+	printf("\n\nmap x = %d, map y = %d, pos x = %f, pos y = %f\n", data.map_xsize,
+		data.map_ysize, data.pos_x, data.pos_y);
 
 	start(&data);
 	return (0);
