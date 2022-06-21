@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/21 17:38:19 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 00:07:49 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -55,15 +55,16 @@ void	get_map_infos(t_data *data)
 {
 	int	x;
 	int	y;
-	data->map_xsize = ft_strlen(data->map[0]) - 1;       // dépendra du format final de map (rectangle ?)
+
+	data->map_xsize = ft_strlen(data->map[0]) - 1;//format de map rectanlge?
 	y = -1;
 	while (data->map[++y] != NULL)
 	{
 		x = 0;
 		while (data->map[y][x] != '\0')
 		{
-			if (data->map[y][x] == 'N' || data->map[y][x] == 'S' || data->map[y][x] == 'E'
-				|| data->map[y][x] == 'W')
+			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
+				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
 				data->pos_x = (float)x + 0.5;
 				data->pos_y = (float)y + 0.5;

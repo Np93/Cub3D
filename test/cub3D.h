@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/21 20:24:34 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 00:04:39 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -25,16 +25,16 @@
 
 # define BUFFER_SIZE 42
 
-     // KEY HOOK CODES //
+	// KEY HOOK CODES //
 
-//ESC = 53 // X = 7 //
+	//ESC = 53 // X = 7 //
 
-         // W = 13 //
+		// W = 13 //
 // A = 0 // S = 1 // D = 2 //
 
 //   <- = 123 // 124 = ->  //
 
-typedef struct	s_data {
+typedef struct s_data {
 	char	**map;
 	int		map_xsize;
 	int		map_ysize;
@@ -62,16 +62,21 @@ typedef struct	s_data {
 typedef struct s_rc {
 	int		mapx;
 	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		side;
 	float	a;
 	float	b;
 	float	distx;
 	float	disty;
+	float	deltax;
+	float	deltay;
 	float	lenx;
 	float	leny;
-	float	anglex;
-	float	angley;
-}			t_rc;
-
+	float	collx;
+	float	colly;
+	int		hit;
+}	t_rc;
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -83,7 +88,7 @@ int		verif_snew(char *map, int i);
 int		verif_cf(char *map, int i);
 int		verifpath(char *path);
 char	*ft_strndup(char *str, int start, int end);
-char 	*ft_strdup(char *src);
+char	*ft_strdup(char *src);
 int		ft_atoi(char *str);
 char	**get_map(char *map_path);
 void	get_map_infos(t_data *data);
@@ -98,5 +103,6 @@ int		colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
 void	print_pov_angle(t_data *data);
 void	collipov(t_data *data, t_rc *rc, float angle);
+void	collipov2(t_data *data, t_rc *rc, float angle);
 
 #endif

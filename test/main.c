@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/20 16:57:50 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 00:11:44 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,10 @@ int	main(int ac, char **av)
 		error_handle(1);
 		return (0);
 	}
-	// Parsing de map //
-	/*if (verifmap(av[1]))
-	{
-		error_handle(verifmap(av[1]));
-		return (0);
-	}*/
-
-	// version provisoire pour bosser sur le r-casting //
+/*	Parsing de map
+	version provisoire pour bosser sur le r-casting*/
 	data.map = get_map(av[1]);
-	/////////////////////////////////////////////////////
-	
 	get_map_infos(&data);
-
-	printf("\n\nmap x = %d, map y = %d, pos x = %f, pos y = %f\n", data.map_xsize,
-		data.map_ysize, data.pos_x, data.pos_y);
-
 	start(&data);
 	return (0);
 }
