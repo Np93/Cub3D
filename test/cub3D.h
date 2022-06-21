@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/20 20:56:22 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/21 20:24:34 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -59,6 +59,19 @@ typedef struct	s_data {
 	int		endian;
 }	t_data;
 
+typedef struct s_rc {
+	int		mapx;
+	int		mapy;
+	float	a;
+	float	b;
+	float	distx;
+	float	disty;
+	float	lenx;
+	float	leny;
+	float	anglex;
+	float	angley;
+}			t_rc;
+
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -84,6 +97,6 @@ int		deal_key(int key, t_data *data);
 int		colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
 void	print_pov_angle(t_data *data);
-float	collipov(t_data *data, float angle);
+void	collipov(t_data *data, t_rc *rc, float angle);
 
 #endif

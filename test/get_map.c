@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/20 18:28:59 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/21 17:38:19 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -65,8 +65,8 @@ void	get_map_infos(t_data *data)
 			if (data->map[y][x] == 'N' || data->map[y][x] == 'S' || data->map[y][x] == 'E'
 				|| data->map[y][x] == 'W')
 			{
-				data->pos_x = (float)x;
-				data->pos_y = (float)y;
+				data->pos_x = (float)x + 0.5;
+				data->pos_y = (float)y + 0.5;
 				get_angle_pov(data, data->map[y][x]);
 			}
 			x++;

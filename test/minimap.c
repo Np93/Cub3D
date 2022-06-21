@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/20 22:40:26 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/21 20:32:49 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -31,8 +31,8 @@ void	print_minimap(t_data *data)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->p_mmap,
-		(data->pos_x * 50) + 20, (data->pos_y * 50) + 20);
+	mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
+		(data->pos_x * 50), (data->pos_y * 50));
 	
 //		if (data->pos_x - (int)data->pos_x > 0.95)
 //			data->pos_x += 0.01;
@@ -41,7 +41,7 @@ void	print_minimap(t_data *data)
 //			(int)data->pos_x / data->pos_x);
 	print_pov_angle(data);
 }
-
+/*
 float	collipov(t_data *data, float angle)
 {
 	float	a;
@@ -60,7 +60,7 @@ float	collipov(t_data *data, float angle)
 //			x += 0.01;
 
 
-			if (data->map[(int)(y + 0.5)][(int)(x + 0.5)] == '1')
+			if (data->map[(int)(y)][(int)(x)] == '1')
 				ok = 0;
 			else
 				a+= 0.1;
@@ -79,15 +79,52 @@ void	print_pov_angle(t_data *data)
 //	while (a <= 1)
 	while (a == 0)
 	{
-		x = 5.1;
+		x = 5.0;
 		max_len = collipov(data, (data->look + a));
 		while (x <= max_len)
 		{
 			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
-				(data->pos_x * 50) + 25 + (cos(data->look + a) * x),
-				(data->pos_y * 50) + 25 - (sin(data->look + a) * x));
-			x += 0.1;
+				(data->pos_x * 50) + (cos(data->look + a) * x),
+				(data->pos_y * 50) - (sin(data->look + a) * x));
+			x += 0.5;
 		}
 		a += 0.05;
+	}
+}*/
+
+void	collipov(t_data *data, t_rc *rc, float angle)
+{
+	if (angle < (M_PI / 2) || angle > ((3 * M_PI) / 2))
+		rc->distx = (rc->mapx + 1) - data->pos_x;
+	else
+		rc->distx = data->pos_x - rc->mapx;
+	if (angle < M_PI)
+		rc->disty = data->pos_y - rc->mapy;
+	else
+		rc->disty = (rc->mapy + 1) - data->pos_y;
+
+	rc->lenx = sqrt(powf(rc->distx, 2) + powf((tan(angle) * rc->distx), 2)) * 50;
+	rc->leny = sqrt(powf(rc->disty, 2) + powf((tan(angle - (M_PI / 2)) * rc->disty), 2)) * 50;	
+}
+
+void	print_pov_angle(t_data *data)
+{
+	t_rc	rc;
+
+	rc.mapx = (int)data->pos_x;
+	rc.mapy = (int)data->pos_y;
+	rc.b = -0.5;
+	while (rc.b <= 0.5)
+	{
+		collipov(data, &rc, data->look + rc.b);
+		rc.a = 1;
+		while (rc.a <= rc.lenx && rc.a <= rc.leny)
+		{
+			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
+				(data->pos_x * 50) + (cos(data->look + rc.b) * rc.a),
+				(data->pos_y * 50) - (sin(data->look + rc.b) * rc.a));
+			rc.a += 0.5;
+		}
+		rc.b += 0.1;
 	}
 }
