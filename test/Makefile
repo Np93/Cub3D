@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/06/20 19:44:51 by rmonney          ###   ########.fr        #
+#    Updated: 2022/06/22 19:45:18 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		= get_next_line.c\
 			  init.c\
 			  minimap.c\
 			  deal_keys.c\
+			  infos_pov.c\
 
 OBJS		= ${SRCS:.c=.o}
 
