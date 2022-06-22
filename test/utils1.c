@@ -6,26 +6,10 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 19:09:21 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 21:32:31 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	if (color == 0x00FF0000)
-	{
-		dst = data->addr_r + (y * data->line_length_r + x * (data->bpp_r / 8));
-		*(unsigned int *)dst = color;
-	}
-	else
-	{
-		dst = data->addr_g + (y * data->line_length_g + x * (data->bpp_g / 8));
-		*(unsigned int *)dst = color;
-	}
-}
 
 char	*ft_strndup(char *str, int start, int end)
 {

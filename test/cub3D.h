@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 20:11:03 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 22:36:24 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -53,15 +53,9 @@ typedef struct s_data {
 	void	*w_mmap;
 	void	*f_mmap;
 	void	*red_pix;
-	char	*addr_r;
-	int		bpp_r;
-	int		line_length_r;
-	int		endian_r;
+	void	*red_big;
+	void	*red_max;
 	void	*green_pix;
-	char	*addr_g;
-	int		bpp_g;
-	int		line_length_g;
-	int		endian_g;
 }	t_data;
 
 typedef struct s_rc {
@@ -84,7 +78,7 @@ typedef struct s_rc {
 }	t_rc;
 
 # define MOVE 0.15
-# define POV 0.1
+# define POV 0.15
 # define PMAP 40
 # define PI 3.141593
 
@@ -105,10 +99,9 @@ void	get_map_infos(t_data *data);
 void	get_angle_pov(t_data *data, char dir);
 void	start(t_data *data);
 void	mlx_initer(t_data *data);
-void	red_pix_maker(t_data *data);
-void	green_pix_maker(t_data *data);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	print_minimap(t_data *data);
+void	print_wall(t_data *data);
+void	print_floor(t_data *data);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
 int		colliwall(int key, t_data *data);
