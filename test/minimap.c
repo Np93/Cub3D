@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 21:50:22 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 22:11:35 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,8 +14,7 @@
 void	print_minimap(t_data *data)
 {
 	mlx_put_image_to_window(data->mlx, data->win_m, data->steel, 0, 0);
-	print_floor(data);
-	print_wall(data);
+	print_floor_wall(data);
 	print_pov_angle(data);
 	mlx_put_image_to_window(data->mlx, data->win_m, data->green_pix,
 		(5.5 * PMAP - 2), (5.5 * PMAP - 2));

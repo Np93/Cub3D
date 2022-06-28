@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 21:46:19 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 22:13:45 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -111,8 +111,11 @@ void	get_angle_pov(t_data *data, char dir);
 void	start(t_data *data);
 void	mlx_initer(t_data *data);
 void	print_minimap(t_data *data);
+void	print_floor_wall(t_data *data);
 void	print_wall(t_data *data);
+void	print_wall2(t_data *data);
 void	print_floor(t_data *data);
+void	print_floor2(t_data *data);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
 int		colliwall(int key, t_data *data);
