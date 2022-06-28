@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 22:41:36 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:21:53 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,10 +14,11 @@
 void	print_minimap(t_data *data)
 {
 	print_floor(data);
-	mlx_put_image_to_window(data->mlx, data->win_m, data->green_pix,
-		(data->pos_x * PMAP + 1), (data->pos_y * PMAP + 1));
-	print_pov_angle(data);
 	print_wall(data);
+	print_pov_angle(data);
+	mlx_put_image_to_window(data->mlx, data->win_m, data->green_pix,
+		(4.5 * PMAP - 2), (4.5 * PMAP - 2));
+//	print_wall(data);
 }
 
 float	angle_correction(float angle)
@@ -90,26 +91,24 @@ void	print_pov_angle(t_data *data)
 	t_rc	rc;
 
 	rc.b = -0.9;
+	rc.x = 0;
 	while (rc.b <= 0.9)
 	{
 		collipov(data, &rc, data->look + rc.b);
-		rc.a = 5;
+		if (rc.x++ % 2)
+			rc.a = 5;
+		else
+			rc.a = 7.5;
 		while (rc.a <= rc.lenx && rc.a <= rc.leny)
 		{
-			if (rc.a < 80)
-				mlx_put_image_to_window(data->mlx, data->win_m, data->red_max,
-					(data->pos_x * PMAP) + (cos(data->look + rc.b) * rc.a),
-					(data->pos_y * PMAP) - (sin(data->look + rc.b) * rc.a));
-			else if (80 <= rc.a && rc.a < 150)
-				mlx_put_image_to_window(data->mlx, data->win_m, data->red_max,
-					(data->pos_x * PMAP) + (cos(data->look + rc.b) * rc.a),
-					(data->pos_y * PMAP) - (sin(data->look + rc.b) * rc.a));
+			mlx_put_image_to_window(data->mlx, data->win_m, data->red_pix,
+				(4.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
+				(4.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
+			if (rc.a < 90)
+				rc.a += 6;
 			else
-				mlx_put_image_to_window(data->mlx, data->win_m, data->red_max,
-					(data->pos_x * PMAP) + (cos(data->look + rc.b) * rc.a),
-					(data->pos_y * PMAP) - (sin(data->look + rc.b) * rc.a));
-			rc.a += 2;
+				rc.a += 5;
 		}
-		rc.b += 0.03;
+		rc.b += 0.05;
 	}
 }

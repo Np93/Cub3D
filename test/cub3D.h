@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 22:36:24 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:30:49 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -35,21 +35,23 @@
 //   <- = 123 // 124 = ->  //
 
 typedef struct s_data {
-	char	**map;
-	int		map_xsize;
-	int		map_ysize;
-	float	pos_x;
-	float	pos_y;
-	float	look;
+	char	**map;   // N
+	int		map_xsize; //N taille en x
+	int		map_ysize; //N taille en y
+	float	pos_x; //N pose du perso
+	float	pos_y; //N pose du perso
+	float	look; //N -> direction nsew
+	float	first_x;
+	float	first_y;
 	void	*mlx;
 	void	*win_m;
 	void	*win_g;
-	void	*north;
-	void	*south;
-	void	*east;
-	void	*west;
-	void	*up;
-	void	*down;
+	void	*north; //N
+	void	*south; //N
+	void	*east; //N
+	void	*west; //N
+	void	*up;  //N
+	void	*down; //N
 	void	*w_mmap;
 	void	*f_mmap;
 	void	*red_pix;
@@ -72,9 +74,8 @@ typedef struct s_rc {
 	float	deltay;
 	float	lenx;
 	float	leny;
-	float	collx;
-	float	colly;
 	int		hit;
+	int		x;
 }	t_rc;
 
 # define MOVE 0.15
