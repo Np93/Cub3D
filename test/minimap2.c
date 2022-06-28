@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:24:56 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 02:53:04 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 21:43:16 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -47,94 +47,74 @@ void	print_floor(t_data *data)
 	}
 }*/
 
-int	diff(t_data *data, char xy)
+void	diff(t_data *data, t_minimap *map)
 {
-	int	inter;
-	int	map_case;
-
-	if (xy == 'x')
-	{
-		inter = (int)(data->pos_x * 10);
-		map_case = (int)(data->pos_x) * 10;
-	}
-	else
-	{
-		inter = (int)(data->pos_y * 10);
-		map_case = (int)(data->pos_y) * 10;
-	}
-
-	if (xy == 'x')
-		printf("diff_x = %d\n", (inter - map_case - 5));
-	else
-		printf("diff_y = %d\n", (inter - map_case - 5));
-
-	return ((inter - map_case - 5));
+		map->diff_x = data->pos_x - (int)data->pos_x - 0.5;
+		map->diff_y = data->pos_y - (int)data->pos_y - 0.5;
 }
 
 void	print_wall(t_data *data)
 {
-	int	x;
-	int	y;
-	int	x_win;
-	int	y_win;
-	int	diff_x;
-	int	diff_y;
+	t_minimap	map;
 
-	diff_x = diff(data, 'x');
-	diff_y = diff(data, 'y');
-	y_win = 0;
-	y = (int)(data->pos_y - 5);
-	while (y <= (int)(data->pos_y + 5))
+	diff(data, &map);
+	if (4 <= data->pos_y)
+		map.y_win = 0;
+	else
+		map.y_win = 1;
+	map.y = (int)(data->pos_y - 4);
+	while (map.y <= (int)(data->pos_y + 4))
 	{
-		x = (int)(data->pos_x - 5);
-		x_win = 0;
-		while (x <= (int)(data->pos_x + 5))
+		map.x = (int)(data->pos_x - 4);
+		if (4 <= data->pos_x)
+			map.x_win = 0;
+		else
+			map.x_win = 1;
+		while (map.x <= (int)(data->pos_x + 4))
 		{
-			if (0 <= x && x < data->map_xsize && 0 <= y && y < data->map_ysize)
+			if (0 <= map.x && map.x < data->map_xsize && 0 <= map.y && map.y < data->map_ysize)
 			{
-				if (data->map[y][x] == '1')
+				if (data->map[map.y][map.x] == '1')
+				{
 					mlx_put_image_to_window(data->mlx, data->win_m, data->w_mmap,
-						(x_win * PMAP - (diff_x * 5)), (y_win * PMAP - (diff_y * 5)));
+						(map.x_win - map.diff_x) * PMAP + PMAP,
+						(map.y_win - map.diff_y) * PMAP + PMAP);
+				}
 			}
-			x++;
-			x_win++;
+			map.x++;
+			map.x_win++;
 		}
-		y++;
-		y_win++;
+		map.y++;
+		map.y_win++;
 	}
 }
 
 void	print_floor(t_data *data)
 {
-	int	x;
-	int	y;
-	int	x_win;
-	int	y_win;
-	int	diff_x;
-	int	diff_y;
+	t_minimap	map;
 
-	diff_x = diff(data, 'x');
-	diff_y = diff(data, 'y');
-	y_win = 0;
-	y = (int)(data->pos_y - 5);
-	while (y <= (int)(data->pos_y + 5))
+	diff(data, &map);
+	map.y_win = 0;
+	map.y = (int)(data->pos_y - 4);
+	while (map.y <= (int)(data->pos_y + 4))
 	{
-		x = (int)(data->pos_x - 5);
-		x_win = 0;
-		while (x <= (int)(data->pos_x + 5))
+		map.x = (int)(data->pos_x - 4);
+		map.x_win = 0;
+		while (map.x <= (int)(data->pos_x + 4))
 		{
-			if ((0 <= x && x < data->map_xsize) && (0 <= y && y < data->map_ysize))
+			if ((0 <= map.x && map.x < data->map_xsize) && (0 <= map.y && map.y < data->map_ysize))
 			{
-				if (data->map[y][x] != '1')
+				if (data->map[map.y][map.x] != '1' && data->map[map.y][map.x] != '\n')
 				{
 					mlx_put_image_to_window(data->mlx, data->win_m, data->f_mmap,
-						x_win * PMAP - (diff_x * 5), y_win * PMAP - (diff_y * 5));
+						(map.x_win - map.diff_x) * PMAP + PMAP,
+						(map.y_win - map.diff_y) * PMAP + PMAP);
 				}
 			}
-			x++;
-			x_win++;
+			map.x++;
+			map.x_win++;
 		}
-		y++;
-		y_win++;
+		map.y++;
+		map.y_win++;
 	}
 }

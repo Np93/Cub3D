@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/06/22 22:27:04 by rmonney          ###   ########.fr        #
+#    Updated: 2022/06/28 21:25:15 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		= get_next_line.c\
 			  init.c\
 			  minimap.c\
 			  minimap2.c\
+			  minimap3.c\
 			  deal_keys.c\
 			  infos_pov.c\
 

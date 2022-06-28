@@ -6,18 +6,19 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 02:21:53 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 21:50:22 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
 
 void	print_minimap(t_data *data)
 {
+	mlx_put_image_to_window(data->mlx, data->win_m, data->steel, 0, 0);
 	print_floor(data);
 	print_wall(data);
 	print_pov_angle(data);
 	mlx_put_image_to_window(data->mlx, data->win_m, data->green_pix,
-		(4.5 * PMAP - 2), (4.5 * PMAP - 2));
+		(5.5 * PMAP - 2), (5.5 * PMAP - 2));
 //	print_wall(data);
 }
 
@@ -77,7 +78,7 @@ void	collipov2(t_data *data, t_rc *rc, float angle)
 			rc->mapy += rc->stepy;
 			rc->side = 1;
 		}
-		if (data->map[rc->mapy][rc->mapx] == '1')
+		if (data->map[rc->mapy][rc->mapx] == '1' || max_len(rc, data))
 			rc->hit = 1;
 	}
 	if (rc->side == 0)
@@ -99,11 +100,11 @@ void	print_pov_angle(t_data *data)
 			rc.a = 5;
 		else
 			rc.a = 7.5;
-		while (rc.a <= rc.lenx && rc.a <= rc.leny)
+		while (rc.a <= rc.lenx && rc.a <= rc.leny && rc.a < 7.05 * PMAP)
 		{
 			mlx_put_image_to_window(data->mlx, data->win_m, data->red_pix,
-				(4.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
-				(4.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
+				(5.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
+				(5.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
 			if (rc.a < 90)
 				rc.a += 6;
 			else

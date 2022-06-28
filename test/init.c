@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 02:25:10 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 21:35:44 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -19,16 +19,17 @@ void	mlx_initer(t_data *data)
 	data->mlx = mlx_init();
 //	data->win_m = mlx_new_window(data->mlx, data->map_xsize * PMAP,
 //			data->map_ysize * PMAP, "minimap");
-	data->win_m = mlx_new_window(data->mlx, 9 * PMAP, 9 * PMAP, "map");
-//	data->win_g = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
-	data->w_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/g40.xpm", &x, &x);
-	data->f_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/b40.xpm", &x, &x);
+//	data->win_m = mlx_new_window(data->mlx, 9 * PMAP, 9 * PMAP, "map");
+	data->win_m = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
+	data->w_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/g30.xpm", &x, &x);
+	data->f_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/b30.xpm", &x, &x);
 	data->red_pix = mlx_xpm_file_to_image(data->mlx, "sprites/r1.xpm", &x, &x);
 //	data->red_pix = mlx_xpm_file_to_image(data->mlx, "sprites/r3.xpm", &x, &x);
 	data->red_big = mlx_xpm_file_to_image(data->mlx, "sprites/r4.xpm", &x, &x);
 	data->red_max = mlx_xpm_file_to_image(data->mlx, "sprites/r6.xpm", &x, &x);
 	data->green_pix = mlx_xpm_file_to_image(data->mlx,
 			"sprites/g4.xpm", &x, &x);
+	data->steel = mlx_xpm_file_to_image(data->mlx, "sprites/steel330.xpm", &x, &x);
 }
 
 void	start(t_data *data)

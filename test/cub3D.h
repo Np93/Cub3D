@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 02:30:49 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/28 21:46:19 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -58,6 +58,7 @@ typedef struct s_data {
 	void	*red_big;
 	void	*red_max;
 	void	*green_pix;
+	void	*steel;
 }	t_data;
 
 typedef struct s_rc {
@@ -78,9 +79,18 @@ typedef struct s_rc {
 	int		x;
 }	t_rc;
 
-# define MOVE 0.15
+typedef struct s_minimap {
+	int		x;
+	int		y;
+	int		x_win;
+	int		y_win;
+	float	diff_x;
+	float	diff_y;
+}	t_minimap;
+
+# define MOVE 0.10
 # define POV 0.15
-# define PMAP 40
+# define PMAP 30
 # define PI 3.141593
 
 void	error_handle(int error);
@@ -112,5 +122,6 @@ void	collipov(t_data *data, t_rc *rc, float angle);
 void	collipov2(t_data *data, t_rc *rc, float angle);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
+int		max_len(t_rc *rc, t_data *data);
 
 #endif
