@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 19:32:14 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 21:29:53 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -60,9 +60,9 @@ int	deal_key(int key, t_data *data)
 		exiter();
 	if (key == 123 || key == 124)
 		key_pov(data, key);
-	mlx_clear_window(data->mlx, data->win_m);
+	mlx_clear_window(data->mlx, data->win);
 	print_minimap(data);
 	if (key == 7)
-		mlx_clear_window(data->mlx, data->win_m);
+		mlx_clear_window(data->mlx, data->win);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/28 22:13:45 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 21:31:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -35,7 +35,7 @@
 //   <- = 123 // 124 = ->  //
 
 typedef struct s_data {
-	char	**map;   // N
+	char	**map; // N
 	int		map_xsize; //N taille en x
 	int		map_ysize; //N taille en y
 	float	pos_x; //N pose du perso
@@ -44,21 +44,18 @@ typedef struct s_data {
 	float	first_x;
 	float	first_y;
 	void	*mlx;
-	void	*win_m;
-	void	*win_g;
+	void	*win;
 	void	*north; //N
 	void	*south; //N
 	void	*east; //N
 	void	*west; //N
-	void	*up;  //N
+	void	*up; //N
 	void	*down; //N
 	void	*w_mmap;
 	void	*f_mmap;
 	void	*red_pix;
-	void	*red_big;
-	void	*red_max;
 	void	*green_pix;
-	void	*steel;
+	void	*map_frame;
 }	t_data;
 
 typedef struct s_rc {
@@ -111,11 +108,10 @@ void	get_angle_pov(t_data *data, char dir);
 void	start(t_data *data);
 void	mlx_initer(t_data *data);
 void	print_minimap(t_data *data);
-void	print_floor_wall(t_data *data);
 void	print_wall(t_data *data);
-void	print_wall2(t_data *data);
+void	print_wall2(t_data *data, t_minimap *map);
 void	print_floor(t_data *data);
-void	print_floor2(t_data *data);
+void	print_floor2(t_data *data, t_minimap *map);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
 int		colliwall(int key, t_data *data);
@@ -125,6 +121,7 @@ void	collipov(t_data *data, t_rc *rc, float angle);
 void	collipov2(t_data *data, t_rc *rc, float angle);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
-int		max_len(t_rc *rc, t_data *data);
+int		max_len(t_rc *rc, t_data *data, float angle);
+int		limit(t_minimap *map);
 
 #endif
