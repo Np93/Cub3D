@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 21:31:23 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:58:57 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -21,7 +21,7 @@
 # include <string.h>
 # include <stddef.h>
 # include <math.h>
-# include "./minilibx/mlx.h"
+# include "../minilibx/mlx.h"
 
 # define BUFFER_SIZE 42
 
@@ -41,8 +41,8 @@ typedef struct s_data {
 	float	pos_x; //N pose du perso
 	float	pos_y; //N pose du perso
 	float	look; //N -> direction nsew
-	float	first_x;
-	float	first_y;
+	int		x_ok;
+	int		y_ok;
 	void	*mlx;
 	void	*win;
 	void	*north; //N
@@ -86,7 +86,7 @@ typedef struct s_minimap {
 }	t_minimap;
 
 # define MOVE 0.10
-# define POV 0.15
+# define POV 0.10
 # define PMAP 30
 # define PI 3.141593
 
@@ -114,7 +114,7 @@ void	print_floor(t_data *data);
 void	print_floor2(t_data *data, t_minimap *map);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
-int		colliwall(int key, t_data *data);
+void	colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
 void	print_pov_angle(t_data *data);
 void	collipov(t_data *data, t_rc *rc, float angle);

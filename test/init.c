@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 21:26:13 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:26:43 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -18,7 +18,7 @@ void	mlx_initer(t_data *data)
 
 	x = 0;
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 1920, 1080, "cub3D");
+	data->win = mlx_new_window(data->mlx, 330, 330, "cub3D");
 	data->w_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/g30.xpm", &x, &x);
 	data->f_mmap = mlx_xpm_file_to_image(data->mlx, "sprites/b30.xpm", &x, &x);
 	data->red_pix = mlx_xpm_file_to_image(data->mlx, "sprites/r1.xpm", &x, &x);
@@ -31,8 +31,6 @@ void	mlx_initer(t_data *data)
 void	start(t_data *data)
 {
 	mlx_initer(data);
-	data->first_x = data->pos_x;
-	data->first_y = data->pos_y;
 	print_minimap(data);
 	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
 	mlx_hook(data->win, 17, 0, exiter, NULL);

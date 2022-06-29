@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 21:29:53 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:34:40 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -23,39 +23,76 @@ void	key_pov(t_data *data, int key)
 		data->look = 0;
 }
 
-int	colliwall(int key, t_data *data)
+void	colliwall2(int key, t_data *data, float *next_x, float *next_y)
+{
+	if (key == 13)
+	{
+		*next_x += cos(data->look) * MOVE;
+		*next_y -= sin(data->look) * MOVE;
+	}
+	else if (key == 0)
+	{
+		*next_x -= sin(data->look) * MOVE;
+		*next_y -= cos(data->look) * MOVE;
+	}
+	else if (key == 1)
+	{
+		*next_x -= cos(data->look) * MOVE;
+		*next_y += sin(data->look) * MOVE;
+	}
+	else if (key == 2)
+	{
+		*next_x += sin(data->look) * MOVE;
+		*next_y += cos(data->look) * MOVE;
+	}
+}
+
+void	colliwall(int key, t_data *data)
 {
 	float	next_x;
 	float	next_y;
 
 	next_x = data->pos_x;
 	next_y = data->pos_y;
-	if (key == 13)
-			next_y -= MOVE;
-	else if (key == 0)
-			next_x -= MOVE;
-	else if (key == 1)
-			next_y += MOVE;
-	else if (key == 2)
-			next_x += MOVE;
-	if (data->map[(int)(next_y)][(int)(next_x)] == '1')
-		return (1);
-	return (0);
+	data->x_ok = 1;
+	data->y_ok = 1;
+	colliwall2(key, data, &next_x, &next_y);
+	if (data->map[(int)(data->pos_y)][(int)(next_x)] == '1')
+		data->x_ok = 0;
+	if (data->map[(int)(next_y)][(int)(data->pos_x)] == '1')
+		data->y_ok = 0;
+}
+
+void	deal_key2(int key, t_data *data)
+{
+	if (data->x_ok)
+	{
+		if (key == 13)
+			data->pos_x += cos(data->look) * MOVE;
+		else if (key == 0)
+			data->pos_x -= sin(data->look) * MOVE;
+		else if (key == 1)
+			data->pos_x -= cos(data->look) * MOVE;
+		else if (key == 2)
+			data->pos_x += sin(data->look) * MOVE;
+	}
+	if (data->y_ok)
+	{
+		if (key == 13)
+			data->pos_y -= sin(data->look) * MOVE;
+		else if (key == 0)
+			data->pos_y -= cos(data->look) * MOVE;
+		else if (key == 1)
+			data->pos_y += sin(data->look) * MOVE;
+		else if (key == 2)
+			data->pos_y += cos(data->look) * MOVE;
+	}
 }
 
 int	deal_key(int key, t_data *data)
 {
-	if (!colliwall(key, data))
-	{
-		if (key == 13)
-			data->pos_y -= MOVE;
-		else if (key == 0)
-			data->pos_x -= MOVE;
-		else if (key == 1)
-			data->pos_y += MOVE;
-		else if (key == 2)
-			data->pos_x += MOVE;
-	}
+	colliwall(key, data);
+	deal_key2(key, data);
 	if (key == 53)
 		exiter();
 	if (key == 123 || key == 124)

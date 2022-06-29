@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 21:31:52 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:57:00 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -95,19 +95,19 @@ void	print_pov_angle(t_data *data)
 	while (rc.b <= 0.9)
 	{
 		collipov(data, &rc, data->look + rc.b);
+		rc.a = 5;
 		if (rc.x++ % 2)
-			rc.a = 5;
-		else
 			rc.a = 7.5;
-		while (rc.a <= rc.lenx && rc.a <= rc.leny && rc.a < 7.05 * PMAP)
+		while (rc.a <= rc.lenx && rc.a <= rc.leny && rc.a < 6.5 * PMAP)
 		{
 			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
 				(5.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
 				(5.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
-			if (rc.a < 90)
-				rc.a += 6;
-			else
-				rc.a += 5;
+			rc.a += 5;
+			if (rc.a < 90 && (-0.01 >= rc.b && rc.b <= 0.01))
+				rc.a += 1;
+			if (-0.01 <= rc.b && rc.b <= 0.01)
+				rc.a -= 4.3;
 		}
 		rc.b += 0.05;
 	}

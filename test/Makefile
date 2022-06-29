@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/06/28 21:25:15 by rmonney          ###   ########.fr        #
+#    Updated: 2022/06/29 22:59:09 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ CC			= gcc
 
 FRAMEWORK	= -framework OpenGL -framework AppKit
 
-MLXPATH		= ./minilibx/
+MLXPATH		= ../minilibx/
 
 INCLUDEMLX	= -I ${MLXPATH}
 
