@@ -6,10 +6,12 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 19:32:41 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/30 21:19:50 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
+
+///// FICHIER TMP A VIRER EN FINAL VERSION /////
 
 char	**get_map(char *map_path)
 {

@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/30 02:57:23 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/30 22:17:29 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,36 +14,36 @@
 void	key_pov(t_data *data, int key)
 {
 	if (key == 123)
-		data->look += POV;
+		data->look += data->pov;
 	else if (key == 124)
-		data->look -= POV;
+		data->look -= data->pov;
 	if (data->look < 0)
-		data->look = (PI * 2);
+		data->look += PI * 2;
 	else if (data->look > (PI * 2))
-		data->look = 0;
+		data->look -= PI * 2;
 }
 
 void	colliwall2(int key, t_data *data, float *next_x, float *next_y)
 {
 	if (key == 13)
 	{
-		*next_x += cos(data->look) * MOVE;
-		*next_y -= sin(data->look) * MOVE;
+		*next_x += cos(data->look) * data->move;
+		*next_y -= sin(data->look) * data->move;
 	}
 	else if (key == 0)
 	{
-		*next_x -= sin(data->look) * MOVE;
-		*next_y -= cos(data->look) * MOVE;
+		*next_x -= sin(data->look) * data->move;
+		*next_y -= cos(data->look) * data->move;
 	}
 	else if (key == 1)
 	{
-		*next_x -= cos(data->look) * MOVE;
-		*next_y += sin(data->look) * MOVE;
+		*next_x -= cos(data->look) * data->move;
+		*next_y += sin(data->look) * data->move;
 	}
 	else if (key == 2)
 	{
-		*next_x += sin(data->look) * MOVE;
-		*next_y += cos(data->look) * MOVE;
+		*next_x += sin(data->look) * data->move;
+		*next_y += cos(data->look) * data->move;
 	}
 }
 
@@ -74,64 +74,26 @@ void	deal_key2(int key, t_data *data)
 	if (data->x_ok)
 	{
 		if (key == 13)
-			data->pos_x += cos(data->look) * MOVE;
+			data->pos_x += cos(data->look) * data->move;
 		else if (key == 0)
-			data->pos_x -= sin(data->look) * MOVE;
+			data->pos_x -= sin(data->look) * data->move;
 		else if (key == 1)
-			data->pos_x -= cos(data->look) * MOVE;
+			data->pos_x -= cos(data->look) * data->move;
 		else if (key == 2)
-			data->pos_x += sin(data->look) * MOVE;
+			data->pos_x += sin(data->look) * data->move;
 	}
 	if (data->y_ok)
 	{
 		if (key == 13)
-			data->pos_y -= sin(data->look) * MOVE;
+			data->pos_y -= sin(data->look) * data->move;
 		else if (key == 0)
-			data->pos_y -= cos(data->look) * MOVE;
+			data->pos_y -= cos(data->look) * data->move;
 		else if (key == 1)
-			data->pos_y += sin(data->look) * MOVE;
+			data->pos_y += sin(data->look) * data->move;
 		else if (key == 2)
-			data->pos_y += cos(data->look) * MOVE;
+			data->pos_y += cos(data->look) * data->move;
 	}
 }
-
-////////////// tentative de choper un bout de texture et l'afficher ensuite ///////////////
-
-void	my_mlx_pixel_put(t_ray_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->data_addr + (y * img->size_line + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	test_img(t_data *data)
-{
-	t_ray_img	img;
-	t_ray_img	wimg;
-	int			x;
-
-	x = 0;
-	img.data_addr = malloc(sizeof(char) * 999999999);
-	img.img_ptr = malloc(99999999999);
-	img.img_ptr = mlx_new_image(img.img_ptr, 30, 30);
-	img.data_addr = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
-
-
-	wimg.data_addr = malloc(sizeof(char) * 999999999);
-	wimg.img_ptr = mlx_xpm_file_to_image(data->mlx, "sprites/g30.xpm", &x, &x);
-	wimg.data_addr = mlx_get_data_addr(wimg.img_ptr, &wimg.bpp, &wimg.size_line, &wimg.endian);
-	
-
-	while (x < 1500)
-	{
-		img.data_addr[x] = wimg.data_addr[x];
-		x++;
-	}
-	mlx_put_image_to_window(data->mlx, data->win, img.img_ptr, 350, 350);
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////
 
 int	deal_key(int key, t_data *data)
 {
@@ -146,6 +108,7 @@ int	deal_key(int key, t_data *data)
 	if (key == 7)
 		mlx_clear_window(data->mlx, data->win);
 	if (key == 45)
-		test_img(data);
+		raycast(data);
+	settings_keys(key, data);
 	return (0);
 }

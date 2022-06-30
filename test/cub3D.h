@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/30 02:57:06 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/30 22:08:25 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -23,18 +23,30 @@
 # include <math.h>
 # include "../minilibx/mlx.h"
 
-# define BUFFER_SIZE 42
-
 	// KEY HOOK CODES //
 
-	// ESC = 53 // X = 7 // N = 45 //
+// ESC = 53 // X = 7 // N = 45 // K = 40 //
 
 		// W = 13 //
 // A = 0 // S = 1 // D = 2 //
 
-//   <- = 123 // 124 = ->  //
+			// UP = 126 //
+// L = 123 // D = 125 // R = 124 //
+
+// - = 78 // + = 69 // ON NUMPAD
+
+typedef struct s_tex {
+	void	*img;
+	int		x;
+	int		y;
+	char	*data_addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_tex;
 
 typedef struct s_data {
+	int		which_key;
 	char	**map; // N
 	int		map_xsize; //N taille en x
 	int		map_ysize; //N taille en y
@@ -45,10 +57,14 @@ typedef struct s_data {
 	int		y_ok;
 	void	*mlx;
 	void	*win;
-	void	*north; //N
-	void	*south; //N
-	void	*east; //N
-	void	*west; //N
+	char	*path_n;
+	char	*path_s;
+	char	*path_e;
+	char	*path_w;
+	t_tex	north; //N
+	t_tex	south; //N
+	t_tex	east; //N
+	t_tex	west; //N
 	void	*up; //N
 	void	*down; //N
 	void	*w_mmap;
@@ -56,6 +72,8 @@ typedef struct s_data {
 	void	*red_pix;
 	void	*green_pix;
 	void	*map_frame;
+	float	move;
+	float	pov;
 }	t_data;
 
 typedef struct s_rc {
@@ -85,18 +103,11 @@ typedef struct s_minimap {
 	float	diff_y;
 }	t_minimap;
 
-typedef struct s_ray_img {
-	void	*img_ptr;
-	char	*data_addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
-}	t_ray_img;
-
-# define MOVE 0.10
-# define POV 0.10
 # define PMAP 30
 # define PI 3.141593
+# define PTEX 64
+# define RESX 1920
+# define RESY 1080
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -122,6 +133,7 @@ void	print_floor(t_data *data);
 void	print_floor2(t_data *data, t_minimap *map);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
+void	settings_keys(int key, t_data *data);
 void	colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
 void	print_pov_angle(t_data *data);
@@ -131,5 +143,6 @@ float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
 int		limit(t_minimap *map);
+void	raycast(t_data *data);
 
 #endif
