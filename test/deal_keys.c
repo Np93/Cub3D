@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 22:34:40 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/30 02:57:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -61,6 +61,12 @@ void	colliwall(int key, t_data *data)
 		data->x_ok = 0;
 	if (data->map[(int)(next_y)][(int)(data->pos_x)] == '1')
 		data->y_ok = 0;
+	if (data->map[(int)(next_y)][(int)(next_x)] == '1'
+			&& data->x_ok && data->y_ok)
+	{
+		data->x_ok = 0;
+		data->y_ok = 0;
+	}
 }
 
 void	deal_key2(int key, t_data *data)
@@ -89,6 +95,44 @@ void	deal_key2(int key, t_data *data)
 	}
 }
 
+////////////// tentative de choper un bout de texture et l'afficher ensuite ///////////////
+
+void	my_mlx_pixel_put(t_ray_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->data_addr + (y * img->size_line + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	test_img(t_data *data)
+{
+	t_ray_img	img;
+	t_ray_img	wimg;
+	int			x;
+
+	x = 0;
+	img.data_addr = malloc(sizeof(char) * 999999999);
+	img.img_ptr = malloc(99999999999);
+	img.img_ptr = mlx_new_image(img.img_ptr, 30, 30);
+	img.data_addr = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
+
+
+	wimg.data_addr = malloc(sizeof(char) * 999999999);
+	wimg.img_ptr = mlx_xpm_file_to_image(data->mlx, "sprites/g30.xpm", &x, &x);
+	wimg.data_addr = mlx_get_data_addr(wimg.img_ptr, &wimg.bpp, &wimg.size_line, &wimg.endian);
+	
+
+	while (x < 1500)
+	{
+		img.data_addr[x] = wimg.data_addr[x];
+		x++;
+	}
+	mlx_put_image_to_window(data->mlx, data->win, img.img_ptr, 350, 350);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 int	deal_key(int key, t_data *data)
 {
 	colliwall(key, data);
@@ -101,5 +145,7 @@ int	deal_key(int key, t_data *data)
 	print_minimap(data);
 	if (key == 7)
 		mlx_clear_window(data->mlx, data->win);
+	if (key == 45)
+		test_img(data);
 	return (0);
 }

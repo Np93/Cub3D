@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 22:58:57 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/30 02:57:06 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -27,7 +27,7 @@
 
 	// KEY HOOK CODES //
 
-	//ESC = 53 // X = 7 //
+	// ESC = 53 // X = 7 // N = 45 //
 
 		// W = 13 //
 // A = 0 // S = 1 // D = 2 //
@@ -84,6 +84,14 @@ typedef struct s_minimap {
 	float	diff_x;
 	float	diff_y;
 }	t_minimap;
+
+typedef struct s_ray_img {
+	void	*img_ptr;
+	char	*data_addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_ray_img;
 
 # define MOVE 0.10
 # define POV 0.10
