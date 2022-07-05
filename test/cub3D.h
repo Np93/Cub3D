@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/30 22:08:25 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/05 20:54:21 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -25,7 +25,7 @@
 
 	// KEY HOOK CODES //
 
-// ESC = 53 // X = 7 // N = 45 // K = 40 //
+// ESC = 53 // X = 7 // N = 45 // K = 40 // R = 15 //
 
 		// W = 13 //
 // A = 0 // S = 1 // D = 2 //
@@ -103,6 +103,17 @@ typedef struct s_minimap {
 	float	diff_y;
 }	t_minimap;
 
+typedef struct s_ray {
+	t_tex	src;
+	t_tex	dst;
+	int		srcx;
+	int		srcy;
+	int		dstx;
+	int		dsty;
+	float	ratio;
+	float	i;
+}	t_ray;
+
 # define PMAP 30
 # define PI 3.141593
 # define PTEX 64
@@ -144,5 +155,6 @@ void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
 int		limit(t_minimap *map);
 void	raycast(t_data *data);
+void	cpy_pixel(t_ray *ray);
 
 #endif
