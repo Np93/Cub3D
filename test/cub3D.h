@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/05 20:54:21 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:46:30 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -65,8 +65,10 @@ typedef struct s_data {
 	t_tex	south; //N
 	t_tex	east; //N
 	t_tex	west; //N
-	void	*up; //N
-	void	*down; //N
+	t_tex	up;
+	t_tex	down;
+	int		up_int[3]; // je veux les trois int du plafond dans ce tableau
+	int		down_int[3]; //idem
 	void	*w_mmap;
 	void	*f_mmap;
 	void	*red_pix;
