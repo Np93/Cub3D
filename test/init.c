@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/05 21:47:45 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/06 17:52:16 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -17,12 +17,12 @@ void	init_up_down(t_data *data)
 	int	x;
 
 ///// initie dans le parsing ///
-	data->down_int[0] = 0;
-	data->down_int[1] = 220;
-	data->down_int[2] = 120;
-	data->up_int[0] = 0;
-	data->up_int[1] = 20;
-	data->up_int[2] = 240;
+	data->down_int[0] = 40;
+	data->down_int[1] = 120;
+	data->down_int[2] = 220;
+	data->up_int[0] = 50;
+	data->up_int[1] = 50;
+	data->up_int[2] = 20;
 ///////////////////////
 	data->up.img = malloc(RESX * (RESY / 2) * 4);
 	data->down.img = malloc(RESX * (RESY / 2) * 4);
@@ -92,12 +92,18 @@ void	mlx_initer(t_data *data)
 	data->which_key = -1;
 }
 
+void	print_background(t_data *data)
+{
+	mlx_put_image_to_window(data->mlx, data->win, data->up.img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->down.img, 0, RESY / 2);
+}
+
 void	start(t_data *data)
 {
 	mlx_initer(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->up.img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->down.img, 0, RESY / 2);
+	print_background(data);
 	print_minimap(data);
+	raycast(data);
 	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
 	mlx_hook(data->win, 17, 0, exiter, NULL);
 	mlx_loop(data->mlx);

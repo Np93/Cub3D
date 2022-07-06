@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/29 22:57:00 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/06 21:26:30 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -21,17 +21,9 @@ void	print_minimap(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->map_frame, 0, 0);
 }
 
-float	angle_correction(float angle)
+void	collipov(t_data *data, t_rc *rc, float angle, int mod)
 {
-	if (angle < 0)
-		return (angle + (2 * PI));
-	if (angle > (2 * PI))
-		return (angle - (2 * PI));
-	return (angle);
-}
-
-void	collipov(t_data *data, t_rc *rc, float angle)
-{
+	rc->mod = mod;
 	rc->mapx = (int)data->pos_x;
 	rc->mapy = (int)data->pos_y;
 	angle = angle_correction(angle);
@@ -81,24 +73,51 @@ void	collipov2(t_data *data, t_rc *rc, float angle)
 			rc->hit = 1;
 	}
 	if (rc->side == 0)
-		rc->lenx -= rc->deltax;
+		rc->dist = rc->lenx - rc->deltax;
 	else
-		rc->leny -= rc->deltay;
+		rc->dist = rc->leny - rc->deltay;
+	collipov3(data, rc, angle);
+}
+
+void	collipov3(t_data *data, t_rc *rc, float angle)
+{
+	if (rc->mod == 0)
+		rc->dist /= PMAP;
+	if (rc->side == 0)
+	{
+		rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
+		if (PI / 2 <= angle && angle <= 3 * PI / 2)
+			printf("ray[%d] hit wall EAST ", rc->num);  ///SET MUR NSEW
+		else
+			printf("ray[%d] hit wall WEST ", rc->num);
+	}
+	else
+	{
+		rc->wallx = data->pos_x + rc->dist * rc->stepx * cos(angle);
+		if (0 <= angle && angle <= PI)
+			printf("ray[%d] hit wall SOUTH ", rc->num);
+		else
+			printf("ray[%d] hit wall NORTH ", rc->num);
+	}
+	rc->wallx -= floor(rc->wallx);
+	if (rc->side == 0)
+		rc->wallx = 1 - rc->wallx;
+	rc->texx = rc->wallx * PTEX;
 }
 
 void	print_pov_angle(t_data *data)
 {
 	t_rc	rc;
 
-	rc.b = -0.9;
+	rc.b = -0.99; // 100rayons
 	rc.x = 0;
-	while (rc.b <= 0.9)
+	while (rc.b <= 0.99)
 	{
-		collipov(data, &rc, data->look + rc.b);
+		collipov(data, &rc, data->look + rc.b, 1);
 		rc.a = 5;
 		if (rc.x++ % 2)
 			rc.a = 7.5;
-		while (rc.a <= rc.lenx && rc.a <= rc.leny && rc.a < 6.5 * PMAP)
+		while (rc.a <= rc.dist && rc.a < 6.5 * PMAP)
 		{
 			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
 				(5.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
@@ -109,6 +128,6 @@ void	print_pov_angle(t_data *data)
 			if (-0.01 <= rc.b && rc.b <= 0.01)
 				rc.a -= 4.3;
 		}
-		rc.b += 0.05;
+		rc.b += 0.02;
 	}
 }

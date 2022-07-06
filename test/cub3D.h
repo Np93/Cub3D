@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/05 21:46:30 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/06 21:05:35 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -76,6 +76,7 @@ typedef struct s_data {
 	void	*map_frame;
 	float	move;
 	float	pov;
+	t_tex	end;
 }	t_data;
 
 typedef struct s_rc {
@@ -92,8 +93,14 @@ typedef struct s_rc {
 	float	deltay;
 	float	lenx;
 	float	leny;
+	float	dist;
+	float	wallx;
+	int		texx;
 	int		hit;
 	int		x;
+	int		mod;
+	int		num;
+	char	what_wall;
 }	t_rc;
 
 typedef struct s_minimap {
@@ -139,6 +146,7 @@ void	get_map_infos(t_data *data);
 void	get_angle_pov(t_data *data, char dir);
 void	start(t_data *data);
 void	mlx_initer(t_data *data);
+void	print_background(t_data *data);
 void	print_minimap(t_data *data);
 void	print_wall(t_data *data);
 void	print_wall2(t_data *data, t_minimap *map);
@@ -150,13 +158,15 @@ void	settings_keys(int key, t_data *data);
 void	colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
 void	print_pov_angle(t_data *data);
-void	collipov(t_data *data, t_rc *rc, float angle);
+void	collipov(t_data *data, t_rc *rc, float angle, int mod);
 void	collipov2(t_data *data, t_rc *rc, float angle);
+void	collipov3(t_data *data, t_rc *rc, float angle);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
 int		limit(t_minimap *map);
-void	raycast(t_data *data);
+void	raycast_test(t_data *data);
 void	cpy_pixel(t_ray *ray);
+void	raycast(t_data *data);
 
 #endif
