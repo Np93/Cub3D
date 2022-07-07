@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 04:22:53 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:00:39 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -115,7 +115,7 @@ void	print_pov_angle(t_data *data)
 {
 	t_rc	rc;
 
-	rc.b = 0.96; // 191rayons
+	rc.b = 0.95; // 38rayons
 	rc.x = 0;
 	while (rc.b >= -0.95)
 	{
@@ -134,6 +134,6 @@ void	print_pov_angle(t_data *data)
 			if (-0.01 <= rc.b && rc.b <= 0.01)
 				rc.a -= 4.3;
 		}
-		rc.b -= 0.01;
+		rc.b -= 0.05;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 20:54:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 04:36:41 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:00:58 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -18,7 +18,8 @@ void	raycast_test(t_data *data)
 
 	end.img = malloc(128 * 128 * 4);
 	end.img = mlx_new_image(end.img, 128, 128);
-	end.data_addr = mlx_get_data_addr(end.img, &end.bpp, &end.size_line, &end.endian);
+	end.data_addr = mlx_get_data_addr(end.img, &end.bpp,
+			&end.size_line, &end.endian);
 
 	rc.ratio = 2;
 	rc.dsty = 0;
@@ -55,6 +56,17 @@ void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc)
 			= src->data_addr[(4 * rc->texx) + (rc->srcy * src->size_line) + i];
 }
 
+void	cpy_color(t_tex *dst, char color[3], t_rc *rc)
+{
+	dst->data_addr[(4 * rc->dstx) + (rc->dsty * dst->size_line)]
+		= color[0];
+	dst->data_addr[(4 * rc->dstx) + (rc->dsty * dst->size_line) + 1]
+		= color[1];
+	dst->data_addr[(4 * rc->dstx) + (rc->dsty * dst->size_line) + 2]
+		= color[2];
+	dst->data_addr[(4 * rc->dstx) + (rc->dsty * dst->size_line) + 3] = 0;
+}
+
 void	what_hit(t_rc *rc)
 {
 	if (rc->what_wall == 'n')
@@ -77,45 +89,51 @@ void	raycast(t_data *data)
 	t_rc	rc;
 
 	rc.num = 0;
-	rc.b = 0.96; // 191rayons
+	rc.b = 0.96; // 1920rayons
 	rc.x = 0;
-	while (rc.b >= -0.95)
+	while (rc.b >= -0.96)
 	{
 		collipov(data, &rc, data->look + rc.b, 0);
 //		what_hit(&rc);
 		make_final(data, &rc);
-		rc.b -= 0.01;
+		rc.b -= 0.001;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->end.img, 0, 0);
+	clear_end(data);
 }
 
 void	make_final(t_data *data, t_rc *rc)
 {
-	rc->ratio = rc->dist;
-	rc->srcy = 0;
-	rc->dsty = 500;
+	rc->h = (int)(HEIGHT / rc->dist);
+	rc->starth = RESY / 2 + rc->h / 2;
+	if (rc->starth > RESY)
+		rc->starth = RESY;
+	rc->endh = RESY / 2 - rc->h / 2;
 
-	while (rc->srcy < 64)
+//	rc->srcy = 500;
+	rc->dsty = rc->starth;
+//	while (rc->srcy < 500 + rc->height)
+	while (rc->dsty >= rc->endh && rc->dsty >= 0)
 	{
-		rc->i = 1;
-		while (rc->i <= rc->ratio)
+		rc->dstx = rc->num * 1;
+		while (rc->dstx < (rc->num + 1) * 1)
 		{
-			rc->dstx = rc->num * 10;
-			while (rc->dstx < (rc->num + 1) * 10)
-			{
-				if (rc->what_wall == 'n')
-					cpy_pixel(&data->end, &data->north, rc);
-				if (rc->what_wall == 's')
-					cpy_pixel(&data->end, &data->south, rc);
-				if (rc->what_wall == 'e')
-					cpy_pixel(&data->end, &data->east, rc);
-				if (rc->what_wall == 'w')
-					cpy_pixel(&data->end, &data->west, rc);
-				rc->dstx++;
-			}
-			rc->dsty++;
-			rc->i += 1;
+			if (rc->what_wall == 'n')
+				cpy_color(&data->end, data->up_char, rc);
+				//cpy_pixel(&data->end, &data->north, rc);
+			if (rc->what_wall == 's')
+				cpy_color(&data->end, data->up_char, rc);
+				//cpy_pixel(&data->end, &data->south, rc);
+			if (rc->what_wall == 'e')
+				cpy_color(&data->end, data->down_char, rc);
+				//cpy_pixel(&data->end, &data->east, rc);
+			if (rc->what_wall == 'w')
+				cpy_color(&data->end, data->down_char, rc);
+				//cpy_pixel(&data->end, &data->west, rc);
+			rc->dstx++;
 		}
+	//	rc->dsty++;
+		rc->dsty--;
 		rc->srcy++;
 	}
 	rc->num++;

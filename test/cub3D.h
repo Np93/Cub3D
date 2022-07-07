@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 04:32:47 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 18:52:22 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -107,6 +107,9 @@ typedef struct s_rc {
 	int		dsty;
 	int		i;
 	int		ratio;
+	int		h;
+	int		starth;
+	int		endh;
 }	t_rc;
 
 typedef struct s_minimap {
@@ -134,6 +137,7 @@ typedef struct s_ray {
 # define PTEX 64
 # define RESX 1920
 # define RESY 1080
+# define HEIGHT 900
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -173,6 +177,7 @@ int		max_len(t_rc *rc, t_data *data, float angle);
 int		limit(t_minimap *map);
 void	raycast_test(t_data *data);
 void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc);
+void	cpy_color(t_tex *dst, char color[3], t_rc *rc);
 void	raycast(t_data *data);
 void	make_final(t_data *data, t_rc *rc);
 void	clear_end(t_data *data);
