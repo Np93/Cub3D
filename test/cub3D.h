@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 21:05:35 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 04:32:47 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -65,10 +65,10 @@ typedef struct s_data {
 	t_tex	south; //N
 	t_tex	east; //N
 	t_tex	west; //N
-	t_tex	up;
-	t_tex	down;
 	int		up_int[3]; // je veux les trois int du plafond dans ce tableau
 	int		down_int[3]; //idem
+	char	up_char[3];
+	char	down_char[3];
 	void	*w_mmap;
 	void	*f_mmap;
 	void	*red_pix;
@@ -101,6 +101,12 @@ typedef struct s_rc {
 	int		mod;
 	int		num;
 	char	what_wall;
+	int		srcx;
+	int		srcy;
+	int		dstx;
+	int		dsty;
+	int		i;
+	int		ratio;
 }	t_rc;
 
 typedef struct s_minimap {
@@ -166,7 +172,9 @@ void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
 int		limit(t_minimap *map);
 void	raycast_test(t_data *data);
-void	cpy_pixel(t_ray *ray);
+void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc);
 void	raycast(t_data *data);
+void	make_final(t_data *data, t_rc *rc);
+void	clear_end(t_data *data);
 
 #endif

@@ -6,81 +6,69 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 20:54:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 21:02:06 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 04:36:41 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
 
 void	raycast_test(t_data *data)
 {
-	t_ray	ray;
+	t_rc	rc;
+	t_tex	end;
 
-	ray.dst.img = malloc(128 * 128 * 4);
-	ray.dst.img = mlx_new_image(ray.dst.img, 128, 128);
-	ray.dst.data_addr = mlx_get_data_addr(ray.dst.img, &ray.dst.bpp,
-			&ray.dst.size_line, &ray.dst.endian);
+	end.img = malloc(128 * 128 * 4);
+	end.img = mlx_new_image(end.img, 128, 128);
+	end.data_addr = mlx_get_data_addr(end.img, &end.bpp, &end.size_line, &end.endian);
 
-	ray.src.data_addr = mlx_get_data_addr(data->north.img, &ray.src.bpp,
-			&ray.src.size_line, &ray.src.endian);
-
-	ray.ratio = 2;
-	ray.dsty = 0;
-	ray.srcy = 0;
-	while (ray.srcy < 64)
+	rc.ratio = 2;
+	rc.dsty = 0;
+	rc.srcy = 0;
+	while (rc.srcy < 64)
 	{
-		ray.i = 1;
-		while (ray.i <= ray.ratio)
+		rc.i = 1;
+		while (rc.i <= rc.ratio)
 		{
-			ray.dstx = 20;
-			ray.srcx = 20;
-			while (ray.srcx <= 40)
+			rc.dstx = 20;
+			rc.texx = 20;
+			while (rc.texx < 40)
 			{
-				cpy_pixel(&ray);
-				ray.dstx++;
-				ray.srcx++;
+				cpy_pixel(&end, &data->north, &rc);
+				rc.texx++;
+				rc.dstx++;
 			}
-			ray.dsty++;
-			ray.i += 1;
+			rc.dsty++;
+			rc.i++;
 		}
-		ray.srcy++;
+		rc.srcy++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, ray.dst.img, 350, 350);
-	free(ray.dst.img);
+	mlx_put_image_to_window(data->mlx, data->win, end.img, 800, 100);
+	free(end.img);
 }
 
-void	cpy_pixel(t_ray *ray)
+void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc)
 {
 	int	i;
 
 	i = -1;
 	while (++i <= 3)
-		ray->dst.data_addr[(4 * ray->dstx) + (ray->dsty
-				* ray->dst.size_line) + i]
-			= ray->src.data_addr[(4 * ray->srcx)
-			+ (ray->srcy * ray->src.size_line) + i];
+		dst->data_addr[(4 * rc->dstx) + (rc->dsty * dst->size_line) + i]
+			= src->data_addr[(4 * rc->texx) + (rc->srcy * src->size_line) + i];
 }
 
-// ATTENTION SENS ANTIHORAIRE CAUSE CERCLE TRIGO //
-void	what_hit(t_rc *rc, float angle)
+void	what_hit(t_rc *rc)
 {
-	if (rc->side == 0)
-	{
-		if (PI / 2 <= angle && angle <= 3 * PI / 2)
-			printf("ray[%d] hit wall EAST ", rc->num);
-		else
-			printf("ray[%d] hit wall WEST ", rc->num);
-	}
-	else
-	{
-		if (0 <= angle && angle <= PI)
-			printf("ray[%d] hit wall SOUTH ", rc->num);
-		else
-			printf("ray[%d] hit wall NORTH ", rc->num);
-	}
+	if (rc->what_wall == 'n')
+		printf("ray[%d] hit wall NORTH ", rc->num);
+	if (rc->what_wall == 's')
+		printf("ray[%d] hit wall SOUTH ", rc->num);
+	if (rc->what_wall == 'e')
+		printf("ray[%d] hit wall EAST ", rc->num);
+	if (rc->what_wall == 'w')
+		printf("ray[%d] hit wall WEST ", rc->num);
 	printf("at dist = [%f], wallx = [%f] & texx = [%d]\n",
 		rc->dist, rc->wallx, rc->texx);
 	rc->num++;
-	if (rc->num == 101)
+	if (rc->num == 100)
 		printf("\n\n");
 }
 
@@ -88,13 +76,57 @@ void	raycast(t_data *data)
 {
 	t_rc	rc;
 
-	rc.num = 1;
-	rc.b = -0.99; // 100rayons
+	rc.num = 0;
+	rc.b = 0.96; // 191rayons
 	rc.x = 0;
-	while (rc.b <= 0.99)
+	while (rc.b >= -0.95)
 	{
 		collipov(data, &rc, data->look + rc.b, 0);
-		what_hit(&rc, data->look + rc.b);
-		rc.b += 0.02;
+//		what_hit(&rc);
+		make_final(data, &rc);
+		rc.b -= 0.01;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->end.img, 0, 0);
+}
+
+void	make_final(t_data *data, t_rc *rc)
+{
+	rc->ratio = rc->dist;
+	rc->srcy = 0;
+	rc->dsty = 500;
+
+	while (rc->srcy < 64)
+	{
+		rc->i = 1;
+		while (rc->i <= rc->ratio)
+		{
+			rc->dstx = rc->num * 10;
+			while (rc->dstx < (rc->num + 1) * 10)
+			{
+				if (rc->what_wall == 'n')
+					cpy_pixel(&data->end, &data->north, rc);
+				if (rc->what_wall == 's')
+					cpy_pixel(&data->end, &data->south, rc);
+				if (rc->what_wall == 'e')
+					cpy_pixel(&data->end, &data->east, rc);
+				if (rc->what_wall == 'w')
+					cpy_pixel(&data->end, &data->west, rc);
+				rc->dstx++;
+			}
+			rc->dsty++;
+			rc->i += 1;
+		}
+		rc->srcy++;
+	}
+	rc->num++;
+}
+
+void	clear_end(t_data *data)
+{
+	int	x;
+
+	x = 0;
+	while (x < RESX * RESY * 4)
+		data->end.data_addr[x++] = 0;
+
 }

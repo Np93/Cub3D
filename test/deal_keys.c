@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 20:58:25 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 04:32:13 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -105,9 +105,10 @@ int	deal_key(int key, t_data *data)
 		key_pov(data, key);
 	settings_keys(key, data);
 	mlx_clear_window(data->mlx, data->win);
-	print_background(data);
-	print_minimap(data);
 	raycast(data);
+//	mlx_put_image_to_window(data->mlx, data->win, data->north.img, 700, 100);
+	print_minimap(data);
+	clear_end(data);
 	if (key == 7)
 		mlx_clear_window(data->mlx, data->win);
 	if (key == 45)

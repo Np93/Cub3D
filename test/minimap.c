@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 21:26:30 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 04:22:53 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -87,31 +87,37 @@ void	collipov3(t_data *data, t_rc *rc, float angle)
 	{
 		rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
 		if (PI / 2 <= angle && angle <= 3 * PI / 2)
-			printf("ray[%d] hit wall EAST ", rc->num);  ///SET MUR NSEW
+			rc->what_wall = 'e';
 		else
-			printf("ray[%d] hit wall WEST ", rc->num);
+			rc->what_wall = 'w';
 	}
 	else
 	{
 		rc->wallx = data->pos_x + rc->dist * rc->stepx * cos(angle);
 		if (0 <= angle && angle <= PI)
-			printf("ray[%d] hit wall SOUTH ", rc->num);
+			rc->what_wall = 's';
 		else
-			printf("ray[%d] hit wall NORTH ", rc->num);
+			rc->what_wall = 'n';
 	}
 	rc->wallx -= floor(rc->wallx);
-	if (rc->side == 0)
+	if (rc->side == 1 && rc->stepy < 0)
+		rc->wallx = 1 - rc->wallx;
+	if (rc->side == 0 && rc->stepx > 0)
 		rc->wallx = 1 - rc->wallx;
 	rc->texx = rc->wallx * PTEX;
+	if (rc->side == 0 && rc->stepy < 0)
+		rc->texx = PTEX - rc->texx - 1;
+	if (rc->side == 1 && rc->stepx > 0)
+		rc->texx = PTEX - rc->texx - 1;
 }
 
 void	print_pov_angle(t_data *data)
 {
 	t_rc	rc;
 
-	rc.b = -0.99; // 100rayons
+	rc.b = 0.96; // 191rayons
 	rc.x = 0;
-	while (rc.b <= 0.99)
+	while (rc.b >= -0.95)
 	{
 		collipov(data, &rc, data->look + rc.b, 1);
 		rc.a = 5;
@@ -128,6 +134,6 @@ void	print_pov_angle(t_data *data)
 			if (-0.01 <= rc.b && rc.b <= 0.01)
 				rc.a -= 4.3;
 		}
-		rc.b += 0.02;
+		rc.b -= 0.01;
 	}
 }

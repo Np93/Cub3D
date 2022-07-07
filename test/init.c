@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 17:52:16 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/07 03:55:46 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,8 +14,6 @@
 
 void	init_up_down(t_data *data)
 {
-	int	x;
-
 ///// initie dans le parsing ///
 	data->down_int[0] = 40;
 	data->down_int[1] = 120;
@@ -24,32 +22,12 @@ void	init_up_down(t_data *data)
 	data->up_int[1] = 50;
 	data->up_int[2] = 20;
 ///////////////////////
-	data->up.img = malloc(RESX * (RESY / 2) * 4);
-	data->down.img = malloc(RESX * (RESY / 2) * 4);
-	if (!data->up.img || !data->down.img)
-		error_handle(5);
-	data->up.img = mlx_new_image(data->up.img, RESX, RESY / 2);
-	data->down.img = mlx_new_image(data->down.img, RESX, RESY / 2);
-	data->up.data_addr = mlx_get_data_addr(data->up.img, &data->up.bpp,
-			&data->up.size_line, &data->up.endian);
-	data->down.data_addr = mlx_get_data_addr(data->down.img, &data->down.bpp,
-			&data->down.size_line, &data->down.endian);
-	x = 0;
-	while (x <= RESX * RESY / 2 * 4)
-	{
-		data->down.data_addr[x++] = data->down_int[0];
-		data->down.data_addr[x++] = data->down_int[1];
-		data->down.data_addr[x++] = data->down_int[2];
-		x++;
-	}
-	x = 0;
-	while (x <= RESX * RESY / 2 * 4)
-	{
-		data->up.data_addr[x++] = data->up_int[0];
-		data->up.data_addr[x++] = data->up_int[1];
-		data->up.data_addr[x++] = data->up_int[2];
-		x++;
-	}
+	data->up_char[0] = data->up_int[0];
+	data->up_char[1] = data->up_int[1];
+	data->up_char[2] = data->up_int[2];
+	data->down_char[0] = data->down_int[0];
+	data->down_char[1] = data->down_int[1];
+	data->down_char[2] = data->down_int[2];
 }
 
 void	tex_init(t_data *data)
@@ -70,6 +48,10 @@ void	tex_init(t_data *data)
 			&data->west.x, &data->west.y);
 	data->west.data_addr = mlx_get_data_addr(data->west.img,
 			&data->west.bpp, &data->west.size_line, &data->west.endian);
+	data->end.img = malloc(RESX * RESY * 4);
+	data->end.img = mlx_new_image(data->end.img, RESX, RESY);
+	data->end.data_addr = mlx_get_data_addr(data->end.img, &data->end.bpp,
+			&data->end.size_line, &data->end.endian);
 	init_up_down(data);
 }
 
@@ -92,18 +74,11 @@ void	mlx_initer(t_data *data)
 	data->which_key = -1;
 }
 
-void	print_background(t_data *data)
-{
-	mlx_put_image_to_window(data->mlx, data->win, data->up.img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->down.img, 0, RESY / 2);
-}
-
 void	start(t_data *data)
 {
 	mlx_initer(data);
-	print_background(data);
-	print_minimap(data);
 	raycast(data);
+	print_minimap(data);
 	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
 	mlx_hook(data->win, 17, 0, exiter, NULL);
 	mlx_loop(data->mlx);
