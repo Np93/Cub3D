@@ -25,6 +25,10 @@ SRCS		= get_next_line.c\
 			  deal_keys2.c\
 			  infos_pov.c\
 			  raycast.c\
+			  vrimap.c\
+			  ft_split.c\
+			  ft_atoi.c\
+			  get_map_game.c\
 
 OBJS		= ${SRCS:.c=.o}
 

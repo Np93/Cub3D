@@ -181,5 +181,8 @@ void	cpy_color(t_tex *dst, char color[3], t_rc *rc);
 void	raycast(t_data *data);
 void	make_final(t_data *data, t_rc *rc);
 void	clear_end(t_data *data);
+void	get_wall(t_data *data);
+char	**ft_split(char *s, char c);
+void	get_map_game(t_data *data);
 
 #endif

@@ -28,6 +28,8 @@ int	main(int ac, char **av)
 /*	Parsing de map
 	version provisoire pour bosser sur le r-casting*/
 	data.map = get_map(av[1]);
+	get_wall(&data);
+	get_map_game(&data);
 	get_map_infos(&data);
 	start(&data);
 	return (0);

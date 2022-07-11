@@ -15,12 +15,12 @@
 void	init_up_down(t_data *data)
 {
 ///// initie dans le parsing ///
-	data->down_int[0] = 40;
+/*	data->down_int[0] = 40;
 	data->down_int[1] = 120;
 	data->down_int[2] = 220;
 	data->up_int[0] = 50;
 	data->up_int[1] = 50;
-	data->up_int[2] = 20;
+	data->up_int[2] = 20;*/
 ///////////////////////
 	data->up_char[0] = data->up_int[0];
 	data->up_char[1] = data->up_int[1];
@@ -32,19 +32,19 @@ void	init_up_down(t_data *data)
 
 void	tex_init(t_data *data)
 {
-	data->north.img = mlx_xpm_file_to_image(data->mlx, "sprites/WN.xpm",
+	data->north.img = mlx_xpm_file_to_image(data->mlx, data->path_n,
 			&data->north.x, &data->north.y);
 	data->north.data_addr = mlx_get_data_addr(data->north.img,
 			&data->north.bpp, &data->north.size_line, &data->north.endian);
-	data->south.img = mlx_xpm_file_to_image(data->mlx, "sprites/WS.xpm",
+	data->south.img = mlx_xpm_file_to_image(data->mlx, data->path_s,
 			&data->south.x, &data->south.y);
 	data->south.data_addr = mlx_get_data_addr(data->south.img,
 			&data->south.bpp, &data->south.size_line, &data->south.endian);
-	data->east.img = mlx_xpm_file_to_image(data->mlx, "sprites/WE.xpm",
+	data->east.img = mlx_xpm_file_to_image(data->mlx, data->path_e,
 			&data->east.x, &data->east.y);
 	data->east.data_addr = mlx_get_data_addr(data->east.img,
 			&data->east.bpp, &data->east.size_line, &data->east.endian);
-	data->west.img = mlx_xpm_file_to_image(data->mlx, "sprites/WW.xpm",
+	data->west.img = mlx_xpm_file_to_image(data->mlx, data->path_w,
 			&data->west.x, &data->west.y);
 	data->west.data_addr = mlx_get_data_addr(data->west.img,
 			&data->west.bpp, &data->west.size_line, &data->west.endian);

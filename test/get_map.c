@@ -6,12 +6,10 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/30 21:19:50 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:32:41 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
-
-///// FICHIER TMP A VIRER EN FINAL VERSION /////
 
 char	**get_map(char *map_path)
 {
@@ -26,7 +24,11 @@ char	**get_map(char *map_path)
 		error_handle(5);
 		return (NULL);
 	}
-	fd = open(map_path, O_RDONLY);
+	if ((fd = open(map_path, O_RDONLY)) < 0)
+	{
+		error_handle(4);
+		return (0);
+	}
 	i = 0;
 	while (1)
 	{
@@ -57,14 +59,17 @@ void	get_map_infos(t_data *data)
 {
 	int	x;
 	int	y;
-
-	data->map_xsize = ft_strlen(data->map[0]) - 1;//format de map rectanlge?
+	int	i;
+	
+//	data->map_xsize = ft_strlen(data->map[0]) - 1;//format de map rectanlge?
+	i = 0;
 	y = -1;
 	while (data->map[++y] != NULL)
 	{
 		x = 0;
 		while (data->map[y][x] != '\0')
 		{
+//			printf("%c", data->map[y][x]);
 			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
 				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
@@ -73,7 +78,11 @@ void	get_map_infos(t_data *data)
 				get_angle_pov(data, data->map[y][x]);
 			}
 			x++;
+			if (i < x)
+				i = x;
 		}
+//		printf("\n");
 	}
+	data->map_xsize = (i -1);
 	data->map_ysize = y;
 }
