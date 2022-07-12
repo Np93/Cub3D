@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:25:23 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:55:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -76,6 +76,12 @@ void	collipov2(t_data *data, t_rc *rc, float angle)
 		rc->dist = rc->lenx - rc->deltax;
 	else
 		rc->dist = rc->leny - rc->deltay;
+
+//	rc->fe_diff = fabs(rc->dist - cos(fabs(data->look - angle)) * rc->dist);
+//	if (rc->mod == 0)
+//		rc->dist -= rc->fe_diff;
+//		printf("fisheye correction = %f\n", rc->fe_diff); ???
+
 	collipov3(data, rc, angle);
 }
 

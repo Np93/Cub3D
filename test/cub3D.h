@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:24:24 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:39:03 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -94,6 +94,7 @@ typedef struct s_rc {
 	float	lenx;
 	float	leny;
 	float	dist;
+	float	fe_diff;
 	float	wallx;
 	int		texx;
 	int		hit;
