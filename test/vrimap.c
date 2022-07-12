@@ -125,20 +125,20 @@ void	get_wall(t_data *data)
 
 	y = -1;
 	temp = malloc(sizeof(char *) *993);
-	while (data->map[++y] != NULL)
+	while (data->map_game[++y] != NULL)
 	{
 		x = 0;
-		while (data->map[y][x] != '\0')
+		while (data->map_game[y][x] != '\0')
 		{
-		if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
-				|| data->map[y][x] == 'E' || data->map[y][x] == 'W' 
-				|| data->map[y][x] == 'C' || data->map[y][x] == 'F')
+		if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
+				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W' 
+				|| data->map_game[y][x] == 'C' || data->map_game[y][x] == 'F')
 			{
 				z = x;
 				i = -1;
-				while (data->map[y][z] != '\n' && data->map[y][z] != '\0')
+				while (data->map_game[y][z] != '\n' && data->map_game[y][z] != '\0')
 				{
-					temp[++i] = data->map[y][z];
+					temp[++i] = data->map_game[y][z];
 					z++;
 				}
 				temp = get_img(data, temp);

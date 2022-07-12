@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 	if (av[1][i - 1] != 'b' || av[1][i - 2] != 'u'
 		|| av[1][i - 3] != 'c' || av[1][i - 4] != '.')
 		error_handle(1);
-	data.map = get_map(av[1]);
+	data.map_game = get_map(av[1]);
 	get_wall(&data);
 	get_map_game(&data);
 	get_map_infos(&data);

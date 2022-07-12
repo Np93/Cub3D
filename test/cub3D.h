@@ -48,6 +48,7 @@ typedef struct s_tex {
 typedef struct s_data {
 	int		which_key;
 	char	**map; // N
+	char	**map_game;
 	int		map_xsize; //N taille en x
 	int		map_ysize; //N taille en y
 	float	pos_x; //N pose du perso
@@ -67,6 +68,7 @@ typedef struct s_data {
 	t_tex	west; //N
 	int		up_int[3]; // je veux les trois int du plafond dans ce tableau
 	int		down_int[3]; //idem
+	int		count;
 	char	up_char[3];
 	char	down_char[3];
 	void	*w_mmap;
