@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 03:55:46 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:19:11 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,14 +14,6 @@
 
 void	init_up_down(t_data *data)
 {
-///// initie dans le parsing ///
-/*	data->down_int[0] = 40;
-	data->down_int[1] = 120;
-	data->down_int[2] = 220;
-	data->up_int[0] = 50;
-	data->up_int[1] = 50;
-	data->up_int[2] = 20;*/
-///////////////////////
 	data->up_char[0] = data->up_int[0];
 	data->up_char[1] = data->up_int[1];
 	data->up_char[2] = data->up_int[2];

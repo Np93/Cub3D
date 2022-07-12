@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:24:20 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/06 19:00:03 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:22:14 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -56,4 +56,32 @@ float	angle_correction(float angle)
 	if (angle > (2 * PI))
 		return (angle - (2 * PI));
 	return (angle);
+}
+
+//38 rayons
+void	print_pov_angle(t_data *data)
+{
+	t_rc	rc;
+
+	rc.b = 0.95;
+	rc.x = 0;
+	while (rc.b >= -0.95)
+	{
+		collipov(data, &rc, data->look + rc.b, 1);
+		rc.a = 5;
+		if (rc.x++ % 2)
+			rc.a = 7.5;
+		while (rc.a <= rc.dist && rc.a < 6.5 * PMAP)
+		{
+			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
+				(5.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
+				(5.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
+			rc.a += 5;
+			if (rc.a < 90 && (-0.01 >= rc.b && rc.b <= 0.01))
+				rc.a += 1;
+			if (-0.01 <= rc.b && rc.b <= 0.01)
+				rc.a -= 4.3;
+		}
+		rc.b -= 0.05;
+	}
 }

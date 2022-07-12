@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 19:14:46 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:25:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -85,7 +85,10 @@ void	collipov3(t_data *data, t_rc *rc, float angle)
 		rc->dist /= PMAP;
 	if (rc->side == 0)
 	{
-		rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
+		if (rc->stepy < 0)
+			rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
+		else
+			rc->wallx = data->pos_y - rc->dist * rc->stepy * sin(angle);
 		if (PI / 2 <= angle && angle <= 3 * PI / 2)
 			rc->what_wall = 'e';
 		else
@@ -93,48 +96,24 @@ void	collipov3(t_data *data, t_rc *rc, float angle)
 	}
 	else
 	{
-		rc->wallx = data->pos_x + rc->dist * rc->stepx * cos(angle);
+		if (rc->stepx > 0)
+			rc->wallx = data->pos_x + rc->dist * rc->stepx * cos(angle);
+		else
+			rc->wallx = data->pos_x - rc->dist * rc->stepx * cos(angle);
 		if (0 <= angle && angle <= PI)
 			rc->what_wall = 's';
 		else
 			rc->what_wall = 'n';
 	}
-	rc->wallx -= floor(rc->wallx);
-	if (rc->side == 1 && rc->stepy < 0)
-		rc->wallx = 1 - rc->wallx;
-	if (rc->side == 0 && rc->stepx > 0)
-		rc->wallx = 1 - rc->wallx;
-	rc->texx = rc->wallx * PTEX;
-	if (rc->side == 0 && rc->stepy < 0)
-		rc->texx = PTEX - rc->texx - 1;
-	if (rc->side == 1 && rc->stepx > 0)
-		rc->texx = PTEX - rc->texx - 1;
+	collipov4(rc);
 }
 
-//38 rayons
-void	print_pov_angle(t_data *data)
+void	collipov4(t_rc *rc)
 {
-	t_rc	rc;
-
-	rc.b = 0.95;
-	rc.x = 0;
-	while (rc.b >= -0.95)
-	{
-		collipov(data, &rc, data->look + rc.b, 1);
-		rc.a = 5;
-		if (rc.x++ % 2)
-			rc.a = 7.5;
-		while (rc.a <= rc.dist && rc.a < 6.5 * PMAP)
-		{
-			mlx_put_image_to_window(data->mlx, data->win, data->red_pix,
-				(5.5 * PMAP) + (cos(data->look + rc.b) * rc.a),
-				(5.5 * PMAP) - (sin(data->look + rc.b) * rc.a));
-			rc.a += 5;
-			if (rc.a < 90 && (-0.01 >= rc.b && rc.b <= 0.01))
-				rc.a += 1;
-			if (-0.01 <= rc.b && rc.b <= 0.01)
-				rc.a -= 4.3;
-		}
-		rc.b -= 0.05;
-	}
+	rc->wallx -= floor(rc->wallx);
+	rc->texx = (int)(rc->wallx * PTEX);
+	if (rc->side == 0 && rc->stepx < 0)
+		rc->texx = PTEX - rc->texx - 1;
+	if (rc->side == 1 && rc->stepy > 0)
+		rc->texx = PTEX - rc->texx - 1;
 }

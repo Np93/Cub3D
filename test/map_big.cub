@@ -1,10 +1,10 @@
 NO ./sprites/WN.xpm
 SO ./sprites/WS.xpm
-WE ./sprites/Ww.xpm
+WE ./sprites/WW.xpm
 EA ./sprites/WE.xpm
 
-F 40,120,220
-C 50,50,20
+F 20,20,20
+C 220,20,20
 
 111111111111111111111111111
 100000000000000000000000001

@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/07 18:52:22 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/12 04:24:24 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -105,8 +105,6 @@ typedef struct s_rc {
 	int		srcy;
 	int		dstx;
 	int		dsty;
-	int		i;
-	int		ratio;
 	int		h;
 	int		starth;
 	int		endh;
@@ -128,8 +126,6 @@ typedef struct s_ray {
 	int		srcy;
 	int		dstx;
 	int		dsty;
-	float	ratio;
-	float	i;
 }	t_ray;
 
 # define PMAP 30
@@ -171,6 +167,7 @@ void	print_pov_angle(t_data *data);
 void	collipov(t_data *data, t_rc *rc, float angle, int mod);
 void	collipov2(t_data *data, t_rc *rc, float angle);
 void	collipov3(t_data *data, t_rc *rc, float angle);
+void	collipov4(t_rc *rc);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
@@ -180,7 +177,6 @@ void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc);
 void	cpy_color(t_tex *dst, char color[3], t_rc *rc);
 void	raycast(t_data *data);
 void	make_final(t_data *data, t_rc *rc);
-void	clear_end(t_data *data);
 void	get_wall(t_data *data);
 char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data);
