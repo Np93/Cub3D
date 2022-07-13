@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 05:57:26 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 23:27:40 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -26,6 +26,7 @@
 	// KEY HOOK CODES //
 
 // ESC = 53 // X = 7 // N = 45 // K = 40 // R = 15 //
+// SPACE = 49 //
 
 		// W = 13 //
 // A = 0 // S = 1 // D = 2 //
@@ -67,6 +68,8 @@ typedef struct s_data {
 	t_tex	south;
 	t_tex	east;
 	t_tex	west;
+	void	*fps1;
+	void	*fps2;
 	int		up_int[3];
 	int		down_int[3];
 	int		count;
@@ -85,8 +88,8 @@ typedef struct s_data {
 	float	planex;
 	float	oldplanex;
 	float	planey;
-	float	rotspeed;
 	t_tex	end;
+	t_tex	white;
 }	t_data;
 
 typedef struct s_rc {
@@ -169,7 +172,10 @@ typedef struct s_ray {
 # define PTEX 64
 # define RESX 1920
 # define RESY 1080
-# define HEIGHT 1000
+# define HEIGHT 900
+# define MLX_SYNC_IMAGE_WRITABLE 1
+# define MLX_SYNC_WIN_FLUSH_CMD 2
+# define MLX_SYNC_WIN_CMD_COMPLETED 3
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -216,5 +222,6 @@ void	make_final(t_data *data, t_rc *rc);
 void	get_wall(t_data *data);
 char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data);
+void	shoot(t_data *data);
 
 #endif

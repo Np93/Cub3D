@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 02:47:47 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 19:50:30 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -20,52 +20,6 @@ void	print_minimap(t_data *data)
 	print_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->map_frame, 0, 0);
 }
-
-
-/*
-void	collipov(t_data *data, t_rc *rc, float angle, int mod)
-{
-	rc->mod = mod;
-	int	dirx = -1;
-	int	diry = 0;
-	float planex = 0;
-	float planey = -0.66;
-
-	float camerax = 2 * rc->num / (float)RESX - 1;
-	float raydirx = dirx + planex * camerax;
-	float raydiry = diry + planey * camerax;
-
-	rc->mapx = (int)data->pos_x;
-	rc->mapy = (int)data->pos_y;
-	angle = angle_correction(angle);
-	rc->deltax = fabs(1 / raydirx);
-	rc->deltay = fabs(1 / raydiry);
-	rc->hit = 0;
-
-	if (raydirx < 0)
-	{
-		rc->stepx = -1;
-		rc->distx = (data->pos_x - rc->mapx) * rc->deltax;
-	}
-	else
-	{
-		rc->stepx = 1;
-		rc->distx = (rc->mapx + 1 - data->pos_x) * rc->deltax;	
-	}
-	if (raydiry < 0)
-	{
-		rc->stepy = 1;
-		rc->disty = (data->pos_y - rc->mapy) * rc->deltay;
-	}
-
-}*/
-
-
-
-
-
-
-
 
 
 void	collipov(t_data *data, t_rc *rc, float angle, int mod)
@@ -130,7 +84,9 @@ void	collipov3(t_data *data, t_rc *rc, float angle)
 {
 	if (rc->mod == 0)
 		rc->dist /= PMAP;
-	if (rc->side == 0)
+	(void)data;
+	(void)angle;
+/*	if (rc->side == 0)
 	{
 		if (rc->stepy < 0)
 			rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
@@ -152,7 +108,7 @@ void	collipov3(t_data *data, t_rc *rc, float angle)
 		else
 			rc->what_wall = 'n';
 	}
-	collipov4(data, rc, angle);
+	collipov4(data, rc, angle);*/
 }
 
 void	collipov4(t_data *data, t_rc *rc, float angle)
@@ -180,20 +136,13 @@ void	collipov4(t_data *data, t_rc *rc, float angle)
 	if (rc->side == 1 && rc->stepy > 0)
 		rc->texx = PTEX - rc->texx;
 
-	if (data && angle)
-		printf("");
 
 	rc->fe_diff = fabs(rc->dist - cos(fabs(data->look - angle)) * rc->dist);
 	if (rc->mod == 0)
 	{
-	//	if ((PI / 4 < data->look && data->look < 3 * PI / 4)
-	//			|| (5 * PI / 4 < data->look && data->look < 7 * PI / 4))
-	//	{
-	//		if (rc->side == 1)
-				if (rc->fe_diff > 30)
-					rc->fe_diff = 30;
-				rc->dist = fabs( cos(data->look - angle) ) * rc->dist;
-	//	}
+		if (rc->fe_diff > 30)
+			rc->fe_diff = 30;
+		rc->dist = fabs( cos(data->look - angle) ) * rc->dist;
 	}
 	if (rc->mod == 0)
 	{

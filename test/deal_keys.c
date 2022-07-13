@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 05:41:39 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 23:03:44 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -17,21 +17,21 @@ void	key_pov(t_data *data, int key)
 	{
 		data->look += data->pov;
 		data->olddirx = data->dirx;
-		data->dirx = data->dirx * cos(-data->rotspeed) - data->diry * sin(-data->rotspeed);
-		data->diry = data->olddirx * sin(-data->rotspeed) + data->diry * cos(-data->rotspeed);
+		data->dirx = data->dirx * cos(-data->pov) - data->diry * sin(-data->pov);
+		data->diry = data->olddirx * sin(-data->pov) + data->diry * cos(-data->pov);
 		data->oldplanex = data->planex;
-		data->planex = data->planex * cos(-data->rotspeed) - data->planey * sin(-data->rotspeed);
-		data->planey = data->planex * sin(-data->rotspeed) + data->planey * cos(-data->rotspeed);
+		data->planex = data->planex * cos(-data->pov) - data->planey * sin(-data->pov);
+		data->planey = data->planex * sin(-data->pov) + data->planey * cos(-data->pov);
 	}
 	else if (key == 124)
 	{
 		data->look -= data->pov;
 		data->olddirx = data->dirx;
-		data->dirx = data->dirx * cos(data->rotspeed) - data->diry * sin(data->rotspeed);
-		data->diry = data->olddirx * sin(data->rotspeed) + data->diry * cos(data->rotspeed);
+		data->dirx = data->dirx * cos(data->pov) - data->diry * sin(data->pov);
+		data->diry = data->olddirx * sin(data->pov) + data->diry * cos(data->pov);
 		data->oldplanex = data->planex;
-		data->planex = data->planex * cos(data->rotspeed) - data->planey * sin(data->rotspeed);
-		data->planey = data->planex * sin(data->rotspeed) + data->planey * cos(data->rotspeed);
+		data->planex = data->planex * cos(data->pov) - data->planey * sin(data->pov);
+		data->planey = data->planex * sin(data->pov) + data->planey * cos(data->pov);
 	}
 	if (data->look < 0)
 		data->look += PI * 2;
@@ -111,6 +111,38 @@ void	deal_key2(int key, t_data *data)
 	}
 }
 
+void	values_correction(t_data *data)
+{
+	if (0.99 <= data->dirx && data->dirx <= 1.01
+			&& -0.01 <= data->diry && data->diry <= 0.01)
+	{
+			data->planex = 0;
+			data->planey = 0.66;
+			data->look = 0;
+	}
+	if (-1.01 <= data->dirx && data->dirx <= -0.99
+			&& -0.01 <= data->diry && data->diry <= 0.01)
+	{
+			data->planex = 0;
+			data->planey = -0.66;
+			data->look = PI;
+	}
+	if (-0.01 <= data->dirx && data->dirx <= 0.01
+			&& 0.99 <= data->diry && data->diry <= 1.01)
+	{
+			data->planex = -0.66;
+			data->planey = 0;
+			data->look = 3 * PI / 2;
+	}
+	if (-0.01 <= data->dirx && data->dirx <= 0.01
+			&& -1.01 <= data->diry && data->diry <= -0.99)
+	{
+			data->planex = 0.66;
+			data->planey = 0;
+			data->look = PI / 2;
+	}
+}
+
 int	deal_key(int key, t_data *data)
 {
 	colliwall(key, data);
@@ -121,9 +153,15 @@ int	deal_key(int key, t_data *data)
 		key_pov(data, key);
 	settings_keys(key, data);
 	mlx_clear_window(data->mlx, data->win);
+	values_correction(data);
 	raycast(data);
 	print_minimap(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->fps1, 780, 720);
 	if (key == 7)
 		mlx_clear_window(data->mlx, data->win);
+	if (key == 49)
+	{
+		shoot(data);
+	}
 	return (0);
 }
