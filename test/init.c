@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:19:11 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 06:06:53 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -47,6 +47,39 @@ void	tex_init(t_data *data)
 	init_up_down(data);
 }
 
+void	set_ray(t_data *data)
+{
+	if (data->init_dir == 'e')
+	{
+		data->planex = 0;
+		data->planey = 0.66;
+		data->dirx = 1;
+		data->diry = 0;
+	}
+	if (data->init_dir == 'n')
+	{
+		data->planex = 0.66;
+		data->planey = 0;
+		data->dirx = 0;
+		data->diry = -1;
+	}
+	if (data->init_dir == 'w')
+	{
+		data->planex = 0;
+		data->planey = -0.66;
+		data->dirx = -1;
+		data->diry = 0;	
+	}
+	if (data->init_dir == 's')
+	{
+		data->planex = -0.66;
+		data->planey = 0;
+		data->dirx = 0;
+		data->diry = 1;
+	}
+	data->rotspeed = 0.06;
+}
+
 void	mlx_initer(t_data *data)
 {
 	int	x;
@@ -62,13 +95,14 @@ void	mlx_initer(t_data *data)
 			"sprites/steel330_crop.xpm", &x, &x);
 	tex_init(data);
 	data->move = 0.1;
-	data->pov = 0.1;
+	data->pov = 0.06;
 	data->which_key = -1;
 }
 
 void	start(t_data *data)
 {
 	mlx_initer(data);
+	set_ray(data);
 	raycast(data);
 	print_minimap(data);
 	mlx_hook(data->win, 2, 1L << 1, deal_key, data);

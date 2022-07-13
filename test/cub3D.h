@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:39:03 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 05:57:26 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -46,14 +46,15 @@ typedef struct s_tex {
 }	t_tex;
 
 typedef struct s_data {
+	char	init_dir;
 	int		which_key;
-	char	**map; // N
+	char	**map;
 	char	**map_game;
-	int		map_xsize; //N taille en x
-	int		map_ysize; //N taille en y
-	float	pos_x; //N pose du perso
-	float	pos_y; //N pose du perso
-	float	look; //N -> direction nsew
+	int		map_xsize;
+	int		map_ysize;
+	float	pos_x;
+	float	pos_y;
+	float	look;
 	int		x_ok;
 	int		y_ok;
 	void	*mlx;
@@ -62,12 +63,12 @@ typedef struct s_data {
 	char	*path_s;
 	char	*path_e;
 	char	*path_w;
-	t_tex	north; //N
-	t_tex	south; //N
-	t_tex	east; //N
-	t_tex	west; //N
-	int		up_int[3]; // je veux les trois int du plafond dans ce tableau
-	int		down_int[3]; //idem
+	t_tex	north;
+	t_tex	south;
+	t_tex	east;
+	t_tex	west;
+	int		up_int[3];
+	int		down_int[3];
 	int		count;
 	char	up_char[3];
 	char	down_char[3];
@@ -78,6 +79,13 @@ typedef struct s_data {
 	void	*map_frame;
 	float	move;
 	float	pov;
+	float	dirx;
+	float	olddirx;
+	float	diry;
+	float	planex;
+	float	oldplanex;
+	float	planey;
+	float	rotspeed;
 	t_tex	end;
 }	t_data;
 
@@ -111,6 +119,7 @@ typedef struct s_rc {
 	int		h;
 	int		starth;
 	int		endh;
+	float	dist_saved;
 }	t_rc;
 
 typedef struct s_minimap {
@@ -123,8 +132,32 @@ typedef struct s_minimap {
 }	t_minimap;
 
 typedef struct s_ray {
-	t_tex	src;
-	t_tex	dst;
+	int		x;
+	float	posx;
+	float	posy;
+	int		mapx;
+	int		mapy;
+	float	planex;
+	float	planey;
+	int		num;
+	float	camerax;
+	float	raydirx;
+	float	raydiry;
+	float	sidedistx;
+	float	sidedisty;
+	float	deltax;
+	float	deltay;
+	float	perpwalldist;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	char	what_wall;
+	float	wallx;
+	int		texx;
+	int		h;
+	int		starth;
+	int		endh;
 	int		srcx;
 	int		srcy;
 	int		dstx;
@@ -136,7 +169,7 @@ typedef struct s_ray {
 # define PTEX 64
 # define RESX 1920
 # define RESY 1080
-# define HEIGHT 900
+# define HEIGHT 1000
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -170,7 +203,7 @@ void	print_pov_angle(t_data *data);
 void	collipov(t_data *data, t_rc *rc, float angle, int mod);
 void	collipov2(t_data *data, t_rc *rc, float angle);
 void	collipov3(t_data *data, t_rc *rc, float angle);
-void	collipov4(t_rc *rc);
+void	collipov4(t_data *data, t_rc *rc, float angle);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);

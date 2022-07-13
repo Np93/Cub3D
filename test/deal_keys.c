@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:18:05 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 05:41:39 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -14,9 +14,25 @@
 void	key_pov(t_data *data, int key)
 {
 	if (key == 123)
+	{
 		data->look += data->pov;
+		data->olddirx = data->dirx;
+		data->dirx = data->dirx * cos(-data->rotspeed) - data->diry * sin(-data->rotspeed);
+		data->diry = data->olddirx * sin(-data->rotspeed) + data->diry * cos(-data->rotspeed);
+		data->oldplanex = data->planex;
+		data->planex = data->planex * cos(-data->rotspeed) - data->planey * sin(-data->rotspeed);
+		data->planey = data->planex * sin(-data->rotspeed) + data->planey * cos(-data->rotspeed);
+	}
 	else if (key == 124)
+	{
 		data->look -= data->pov;
+		data->olddirx = data->dirx;
+		data->dirx = data->dirx * cos(data->rotspeed) - data->diry * sin(data->rotspeed);
+		data->diry = data->olddirx * sin(data->rotspeed) + data->diry * cos(data->rotspeed);
+		data->oldplanex = data->planex;
+		data->planex = data->planex * cos(data->rotspeed) - data->planey * sin(data->rotspeed);
+		data->planey = data->planex * sin(data->rotspeed) + data->planey * cos(data->rotspeed);
+	}
 	if (data->look < 0)
 		data->look += PI * 2;
 	else if (data->look > (PI * 2))

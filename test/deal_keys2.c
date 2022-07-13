@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 21:59:16 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/05 18:32:16 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/13 06:03:43 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -37,15 +37,17 @@ void	settings_keys(int key, t_data *data)
 			printf("WHICH KEY MODE DISABLED\n");
 		data->which_key *= -1;
 	}
-	if (key == 126 && data->pov < 0.95)
+/*	if (key == 126 && data->pov < 0.95)
 	{
 		data->pov += 0.1;
+		data->rotspeed += 0.1;
 		printf("POV SPEED = [%f]\n", data->pov);
 	}
 	if (key == 125 && 0.15 < data->pov)
 	{
 		data->pov -= 0.1;
+		data->rotspeed -= 0.1;
 		printf("POV SPEED = [%f]\n", data->pov);
-	}
+	}*/
 	settings_keys2(key, data);
 }
