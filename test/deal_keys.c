@@ -6,38 +6,10 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 23:03:44 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 04:44:54 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
-
-void	key_pov(t_data *data, int key)
-{
-	if (key == 123)
-	{
-		data->look += data->pov;
-		data->olddirx = data->dirx;
-		data->dirx = data->dirx * cos(-data->pov) - data->diry * sin(-data->pov);
-		data->diry = data->olddirx * sin(-data->pov) + data->diry * cos(-data->pov);
-		data->oldplanex = data->planex;
-		data->planex = data->planex * cos(-data->pov) - data->planey * sin(-data->pov);
-		data->planey = data->planex * sin(-data->pov) + data->planey * cos(-data->pov);
-	}
-	else if (key == 124)
-	{
-		data->look -= data->pov;
-		data->olddirx = data->dirx;
-		data->dirx = data->dirx * cos(data->pov) - data->diry * sin(data->pov);
-		data->diry = data->olddirx * sin(data->pov) + data->diry * cos(data->pov);
-		data->oldplanex = data->planex;
-		data->planex = data->planex * cos(data->pov) - data->planey * sin(data->pov);
-		data->planey = data->planex * sin(data->pov) + data->planey * cos(data->pov);
-	}
-	if (data->look < 0)
-		data->look += PI * 2;
-	else if (data->look > (PI * 2))
-		data->look -= PI * 2;
-}
 
 void	colliwall2(int key, t_data *data, float *next_x, float *next_y)
 {
@@ -111,57 +83,23 @@ void	deal_key2(int key, t_data *data)
 	}
 }
 
-void	values_correction(t_data *data)
-{
-	if (0.99 <= data->dirx && data->dirx <= 1.01
-			&& -0.01 <= data->diry && data->diry <= 0.01)
-	{
-			data->planex = 0;
-			data->planey = 0.66;
-			data->look = 0;
-	}
-	if (-1.01 <= data->dirx && data->dirx <= -0.99
-			&& -0.01 <= data->diry && data->diry <= 0.01)
-	{
-			data->planex = 0;
-			data->planey = -0.66;
-			data->look = PI;
-	}
-	if (-0.01 <= data->dirx && data->dirx <= 0.01
-			&& 0.99 <= data->diry && data->diry <= 1.01)
-	{
-			data->planex = -0.66;
-			data->planey = 0;
-			data->look = 3 * PI / 2;
-	}
-	if (-0.01 <= data->dirx && data->dirx <= 0.01
-			&& -1.01 <= data->diry && data->diry <= -0.99)
-	{
-			data->planex = 0.66;
-			data->planey = 0;
-			data->look = PI / 2;
-	}
-}
-
 int	deal_key(int key, t_data *data)
 {
 	colliwall(key, data);
 	deal_key2(key, data);
 	if (key == 53)
 		exiter();
-	if (key == 123 || key == 124)
-		key_pov(data, key);
+	key_pov(data, key);
 	settings_keys(key, data);
 	mlx_clear_window(data->mlx, data->win);
 	values_correction(data);
 	raycast(data);
 	print_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->fps1, 780, 720);
-	if (key == 7)
-		mlx_clear_window(data->mlx, data->win);
 	if (key == 49)
-	{
 		shoot(data);
-	}
+	if (key == 8)
+		data->cross *= -1;
+	print_info_str(data);
 	return (0);
 }

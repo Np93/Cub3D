@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:43:58 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 19:50:30 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 00:53:15 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -20,7 +20,6 @@ void	print_minimap(t_data *data)
 	print_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->map_frame, 0, 0);
 }
-
 
 void	collipov(t_data *data, t_rc *rc, float angle, int mod)
 {
@@ -77,78 +76,4 @@ void	collipov2(t_data *data, t_rc *rc, float angle)
 		rc->dist = rc->lenx - rc->deltax;
 	else
 		rc->dist = rc->leny - rc->deltay;
-	collipov3(data, rc, angle);
-}
-
-void	collipov3(t_data *data, t_rc *rc, float angle)
-{
-	if (rc->mod == 0)
-		rc->dist /= PMAP;
-	(void)data;
-	(void)angle;
-/*	if (rc->side == 0)
-	{
-		if (rc->stepy < 0)
-			rc->wallx = data->pos_y + rc->dist * rc->stepy * sin(angle);
-		else
-			rc->wallx = data->pos_y - rc->dist * rc->stepy * sin(angle);
-		if (PI / 2 <= angle && angle <= 3 * PI / 2)
-			rc->what_wall = 'e';
-		else
-			rc->what_wall = 'w';
-	}
-	else
-	{
-		if (rc->stepx > 0)
-			rc->wallx = data->pos_x + rc->dist * rc->stepx * cos(angle);
-		else
-			rc->wallx = data->pos_x - rc->dist * rc->stepx * cos(angle);
-		if (0 <= angle && angle <= PI)
-			rc->what_wall = 's';
-		else
-			rc->what_wall = 'n';
-	}
-	collipov4(data, rc, angle);*/
-}
-
-void	collipov4(t_data *data, t_rc *rc, float angle)
-{
-/*
-//	if (rc->side == 1)
-		rc->fe_diff = fabs(rc->dist - cos(fabs(data->look - angle)) * rc->dist);
-//	else
-//		rc->fe_diff = fabs(rc->dist - sin(fabs((data->look + PI) - (angle + PI))) * rc->dist);
-	if (rc->mod == 0)
-	{
-	//	if (rc->side == 1)
-			rc->dist -= rc->fe_diff;	//calcul avec le plan CAMX
-	}
-	if (rc->mod == 1)
-	{
-		if (rc->side == 1)
-			printf("fisheye correction = %f\n", rc->fe_diff);
-	}*/
-
-	rc->wallx -= floor(rc->wallx);
-	rc->texx = (int)(rc->wallx * PTEX);
-	if (rc->side == 0 && rc->stepx < 0)
-		rc->texx = PTEX - rc->texx;
-	if (rc->side == 1 && rc->stepy > 0)
-		rc->texx = PTEX - rc->texx;
-
-
-	rc->fe_diff = fabs(rc->dist - cos(fabs(data->look - angle)) * rc->dist);
-	if (rc->mod == 0)
-	{
-		if (rc->fe_diff > 30)
-			rc->fe_diff = 30;
-		rc->dist = fabs( cos(data->look - angle) ) * rc->dist;
-	}
-	if (rc->mod == 0)
-	{
-		if (rc->num % 100 == 0)
-			printf("fisheye correction for ray[%d] = %f\n", rc->num,  rc->fe_diff);
-		if (rc->num == 1920)
-			printf("\n\n");
-	}
 }

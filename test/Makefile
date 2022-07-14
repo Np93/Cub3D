@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/06/30 22:03:37 by rmonney          ###   ########.fr        #
+#    Updated: 2022/07/14 01:19:40 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ SRCS		= get_next_line.c\
 			  minimap3.c\
 			  deal_keys.c\
 			  deal_keys2.c\
+			  deal_keys3.c\
 			  infos_pov.c\
 			  raycast.c\
+			  raycast2.c\
 			  vrimap.c\
 			  ft_split.c\
 			  ft_atoi.c\

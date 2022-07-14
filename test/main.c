@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/12 04:19:43 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 04:49:48 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,28 @@ int	main(int ac, char **av)
 	get_map_infos(&data);
 	start(&data);
 	return (0);
+}
+
+void	init_info_str(t_data *data)
+{
+	data->move_speed = ft_strdup("PLAYER SPEED = [1]");
+	data->pov_speed = ft_strdup("POV SPEED = [1]");
+	data->ctrl = ft_strdup("MOVES : [A] [S] [D] [W] [LEFT] [RIGHT]");
+	data->ctrl2 = ft_strdup("SPEED CTRL : [-] [+]  POV CTRL : [DOWN] [UP]");
+	data->ctrl3 = ft_strdup("CHANGE CROSSAIR : [C]");
+}
+
+void	start(t_data *data)
+{
+	init_info_str(data);
+	mlx_initer(data);
+	set_ray(data);
+	raycast(data);
+	print_minimap(data);
+	print_info_str(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->fps1, 780, 720);
+	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
+	mlx_hook(data->win, 17, 0, exiter, NULL);
+	mlx_loop(data->mlx);
+	return ;
 }

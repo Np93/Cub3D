@@ -6,13 +6,13 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 23:25:30 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 04:42:17 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
 //res en 2080x1170 ?//
 
-void	init_up_down(t_data *data)
+void	tex_init2(t_data *data)
 {
 	int	x;
 	int	y;
@@ -29,10 +29,10 @@ void	init_up_down(t_data *data)
 		y = 0;
 		while (y < RESY)
 		{
-			data->white.data_addr[4 * x + data->end.size_line * y] = (char)255;
-			data->white.data_addr[4 * x + data->end.size_line * y + 1] = (char)255;
-			data->white.data_addr[4 * x + data->end.size_line * y + 2] = (char)255;
-			data->white.data_addr[4 * x + data->end.size_line * y + 3] = (char)150;
+			data->w.data_addr[4 * x + data->w.size_line * y] = (char)255;
+			data->w.data_addr[4 * x + data->w.size_line * y + 1] = (char)255;
+			data->w.data_addr[4 * x + data->w.size_line * y + 2] = (char)255;
+			data->w.data_addr[4 * x + data->w.size_line * y + 3] = (char)150;
 			y++;
 		}
 		x++;
@@ -61,11 +61,11 @@ void	tex_init(t_data *data)
 	data->end.img = mlx_new_image(data->end.img, RESX, RESY);
 	data->end.data_addr = mlx_get_data_addr(data->end.img, &data->end.bpp,
 			&data->end.size_line, &data->end.endian);
-	data->white.img = malloc(RESX * RESY * 4);
-	data->white.img = mlx_new_image(data->white.img, RESX, RESY);
-	data->white.data_addr = mlx_get_data_addr(data->white.img, &data->white.bpp,
-			&data->white.size_line, &data->white.endian);
-	init_up_down(data);
+	data->w.img = malloc(RESX * RESY * 4);
+	data->w.img = mlx_new_image(data->w.img, RESX, RESY);
+	data->w.data_addr = mlx_get_data_addr(data->w.img, &data->w.bpp,
+			&data->w.size_line, &data->w.endian);
+	tex_init2(data);
 }
 
 void	set_ray(t_data *data)
@@ -84,12 +84,17 @@ void	set_ray(t_data *data)
 		data->dirx = 0;
 		data->diry = -1;
 	}
+	set_ray2(data);
+}
+
+void	set_ray2(t_data *data)
+{
 	if (data->init_dir == 'w')
 	{
 		data->planex = 0;
 		data->planey = -0.66;
 		data->dirx = -1;
-		data->diry = 0;	
+		data->diry = 0;
 	}
 	if (data->init_dir == 's')
 	{
@@ -113,23 +118,18 @@ void	mlx_initer(t_data *data)
 			"sprites/g4.xpm", &x, &x);
 	data->map_frame = mlx_xpm_file_to_image(data->mlx,
 			"sprites/steel330_crop.xpm", &x, &x);
-	data->fps1 = mlx_xpm_file_to_image(data->mlx, "sprites/360fps1.xpm", &x, &x);
-	data->fps2 = mlx_xpm_file_to_image(data->mlx, "sprites/360fps2.xpm", &x, &x);
+	data->fps1 = mlx_xpm_file_to_image(data->mlx,
+			"sprites/360fps1.xpm", &x, &x);
+	data->fps2 = mlx_xpm_file_to_image(data->mlx,
+			"sprites/360fps2.xpm", &x, &x);
+	data->cross1 = mlx_xpm_file_to_image(data->mlx,
+			"sprites/cross1s.xpm", &x, &x);
+	data->cross2 = mlx_xpm_file_to_image(data->mlx,
+			"sprites/cross2s.xpm", &x, &x);
 	tex_init(data);
 	data->move = 0.1;
-	data->pov = PI / 50;
+	data->pov_divider = 50;
+	data->pov = PI / data->pov_divider;
 	data->which_key = -1;
-}
-
-void	start(t_data *data)
-{
-	mlx_initer(data);
-	set_ray(data);
-	raycast(data);
-	print_minimap(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->fps1, 780, 720);
-	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
-	mlx_hook(data->win, 17, 0, exiter, NULL);
-	mlx_loop(data->mlx);
-	return ;
+	data->cross = 1;
 }

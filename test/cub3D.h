@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 23:27:40 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 04:48:48 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -82,6 +82,7 @@ typedef struct s_data {
 	void	*map_frame;
 	float	move;
 	float	pov;
+	int		pov_divider;
 	float	dirx;
 	float	olddirx;
 	float	diry;
@@ -89,7 +90,15 @@ typedef struct s_data {
 	float	oldplanex;
 	float	planey;
 	t_tex	end;
-	t_tex	white;
+	t_tex	w;
+	char	*move_speed;
+	char	*pov_speed;
+	char	*ctrl;
+	char	*ctrl2;
+	char	*ctrl3;
+	void	*cross1;
+	void	*cross2;
+	int		cross;
 }	t_data;
 
 typedef struct s_rc {
@@ -172,10 +181,7 @@ typedef struct s_ray {
 # define PTEX 64
 # define RESX 1920
 # define RESY 1080
-# define HEIGHT 900
-# define MLX_SYNC_IMAGE_WRITABLE 1
-# define MLX_SYNC_WIN_FLUSH_CMD 2
-# define MLX_SYNC_WIN_CMD_COMPLETED 3
+# define HEIGHT 1000
 
 void	error_handle(int error);
 char	*get_next_line(int fd);
@@ -193,6 +199,8 @@ char	**get_map(char *map_path);
 void	get_map_infos(t_data *data);
 void	get_angle_pov(t_data *data, char dir);
 void	start(t_data *data);
+void	set_ray(t_data *data);
+void	set_ray2(t_data *data);
 void	mlx_initer(t_data *data);
 void	print_background(t_data *data);
 void	print_minimap(t_data *data);
@@ -202,14 +210,15 @@ void	print_floor(t_data *data);
 void	print_floor2(t_data *data, t_minimap *map);
 int		exiter(void);
 int		deal_key(int key, t_data *data);
+void	values_correction(t_data *data);
+void	values_correction2(t_data *data);
 void	settings_keys(int key, t_data *data);
 void	colliwall(int key, t_data *data);
 void	key_pov(t_data *data, int key);
+void	key_pov2(t_data *data, int key);
 void	print_pov_angle(t_data *data);
 void	collipov(t_data *data, t_rc *rc, float angle, int mod);
 void	collipov2(t_data *data, t_rc *rc, float angle);
-void	collipov3(t_data *data, t_rc *rc, float angle);
-void	collipov4(t_data *data, t_rc *rc, float angle);
 float	angle_correction(float angle);
 void	infos_pov(t_data *data, t_rc *rc, float angle);
 int		max_len(t_rc *rc, t_data *data, float angle);
@@ -218,10 +227,15 @@ void	raycast_test(t_data *data);
 void	cpy_pixel(t_tex *dst, t_tex *src, t_rc *rc);
 void	cpy_color(t_tex *dst, char color[3], t_rc *rc);
 void	raycast(t_data *data);
+void	raycast2(t_data *data, t_ray *r);
+void	raycast3(t_data *data, t_ray *r);
+void	raycast4(t_data *data, t_ray *r);
+void	raycast5(t_data *data, t_ray *r);
 void	make_final(t_data *data, t_rc *rc);
 void	get_wall(t_data *data);
 char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data);
 void	shoot(t_data *data);
+void	print_info_str(t_data *data);
 
 #endif

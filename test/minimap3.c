@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:24:20 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/13 21:29:29 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 01:42:02 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -65,7 +65,7 @@ void	print_pov_angle(t_data *data)
 	rc.num = 0;
 	rc.b = 0.59;
 	rc.x = 0;
-	while (rc.b >= -0.59)
+	while (-0.59 <= rc.b)
 	{
 		collipov(data, &rc, data->look + rc.b, 1);
 		rc.a = 5;
