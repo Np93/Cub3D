@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/14 04:50:17 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/07/14 04:55:20 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -57,9 +57,9 @@ void	print_info_str(t_data *data)
 {
 	mlx_string_put(data->mlx, data->win, 340, 20, 0xFFFFFF, data->move_speed);
 	mlx_string_put(data->mlx, data->win, 340, 40, 0xFFFFFF, data->pov_speed);
-	mlx_string_put(data->mlx, data->win, 20, 1060, 0xFFFFFF, data->ctrl);
-	mlx_string_put(data->mlx, data->win, 20, 1030, 0xFFFFFF, data->ctrl2);
-	mlx_string_put(data->mlx, data->win, 20, 1000, 0xFFFFFF, data->ctrl3);
+	mlx_string_put(data->mlx, data->win, 20, RESY - 20, 0xFFFFFF, data->ctrl);
+	mlx_string_put(data->mlx, data->win, 20, RESY - 50, 0xFFFFFF, data->ctrl2);
+	mlx_string_put(data->mlx, data->win, 20, RESY - 80, 0xFFFFFF, data->ctrl3);
 	if (0 < data->cross)
 		mlx_put_image_to_window(data->mlx, data->win, data->cross1, 935, 515);
 	else
