@@ -26,9 +26,10 @@ int	main(int ac, char **av)
 		|| av[1][i - 3] != 'c' || av[1][i - 4] != '.')
 		error_handle(1);
 	data.map_game = get_map(av[1]);
-	get_wall(&data);
+	get_wall1(&data);
 	get_map_game(&data);
 	get_map_infos(&data);
+	printf("%s\n", data.path_n);
 	start(&data);
 	return (0);
 }
