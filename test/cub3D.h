@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 00:03:28 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 00:40:13 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -242,5 +242,7 @@ char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data);
 void	shoot(t_data *data);
 void	print_info_str(t_data *data);
+int		empty_image(t_data *data);
+void	remake_map(t_data *data);
 
 #endif

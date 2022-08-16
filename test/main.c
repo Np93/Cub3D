@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 00:04:17 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 01:50:49 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,14 @@ void	init_info_str(t_data *data)
 
 void	start(t_data *data)
 {
+	remake_map(data);
 	init_info_str(data);
 	mlx_initer(data);
+	if (empty_image(data))
+	{
+		printf("ERROR \nWrong texture path\n");
+		exit(0);
+	}
 	set_ray(data);
 	raycast(data);
 	print_minimap(data);

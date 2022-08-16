@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 00:18:24 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 00:46:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -55,8 +55,8 @@ int	exiter(t_data *data)
 //	free(data->w.img);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_window(data->mlx, data->win);
-	while (1)
-	{}
+//	while (1)
+//	{}
 	exit(0);
 	return (0);
 }
@@ -72,4 +72,17 @@ void	print_info_str(t_data *data)
 		mlx_put_image_to_window(data->mlx, data->win, data->cross1, 935, 515);
 	else
 		mlx_string_put(data->mlx, data->win, 957, 544, 0x00FF00, "o");
+}
+
+int	empty_image(t_data *data)
+{
+	if (data->north.img == NULL)
+		return (1);
+	if (data->south.img == NULL)
+		return (1);
+	if (data->east.img == NULL)
+		return (1);
+	if (data->west.img == NULL)
+		return (1);
+	return (0);
 }
