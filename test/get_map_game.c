@@ -6,7 +6,7 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:47:56 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/17 00:49:09 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/17 01:38:14 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -22,10 +22,7 @@ char	*load_def_map(t_data *data, char *line)
 		if (line[i] == '\0' || line[i] == '\n' || line == NULL)
 			rep = 1;
 	if (data->rep == 1 && (line == NULL || line[0] == '\n' || line[0] == '\0'))
-	{
-		printf("ERROR :\n%s\n", "map pas correcte, ligne vide dans la map");
-		exit(0);
-	}
+		error_handle2(7);
 	if (rep == 0)
 	{
 		(data->count)++;

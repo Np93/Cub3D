@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 00:45:13 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/17 01:46:06 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -72,10 +72,7 @@ void	map_close(t_data *data, int y, int x, int count)
 		|| data->map[y][x + 1] == '\0' || data->map[y + 1][x] == '\0'
 		|| data->map[y - 1][x] == '\0' || data->map[y - 1][x] == '\n'
 		|| data->map[y + 1][x] == '\n')))
-	{
-		printf("ERROR :\n%s\n", "map ouvert");
-		exit(0);
-	}
+		error_handle3(2);
 	if ((data->map[y][x] == 'N' || data->map[y][x] == 'W'
 		|| data->map[y][x] == 'S' || data->map[y][x] == 'E')
 		&& (count < x || data->count_y == y || x == 0
@@ -84,10 +81,7 @@ void	map_close(t_data *data, int y, int x, int count)
 		|| data->map[y][x + 1] == '\n' || data->map[y + 1][x] == '\n'
 		|| data->map[y - 1][x] == '\n' || data->map[y][x + 1] == '\0'
 		|| data->map[y + 1][x] == '\0' || data->map[y - 1][x] == '\0'))
-	{
-		printf("ERROR :\n%s\n", "player a l'exterieur de la map");
-		exit(0);
-	}
+		error_handle3(1);
 }
 
 void	get_map_infos(t_data *data)
@@ -118,10 +112,7 @@ void	get_map_infos(t_data *data)
 				&& data->map[y][x] != 'E' && data->map[y][x] != 'W'
 				&& data->map[y][x] != '1' && data->map[y][x] != '0'
 				&& data->map[y][x] != ' ' && data->map[y][x] != '\n')
-			{
-				printf("ERROR :\n%s\n", "caractere non valide");
-				exit(0);
-			}
+				error_handle3(0);
 			map_close(data, y, x, count);
 			x++;
 			if (i < x)
@@ -130,15 +121,9 @@ void	get_map_infos(t_data *data)
 		count = x;
 	}
 	if (data->player == 0)
-	{
-		printf("ERROR :\n%s\n", "il y a pas de joueur comment tu joue toi?");
-		exit(0);
-	}
+		error_handle2(9);
 	if (data->player != 1)
-	{
-		printf("ERROR :\n%s\n", "trop de joueur tu peux seulemet en comtroler 1");
-		exit(0);
-	}
+		error_handle2(8);
 	data->map_xsize = (i - 1);
 	data->map_ysize = y;
 }

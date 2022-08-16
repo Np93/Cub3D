@@ -6,7 +6,7 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:29:37 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/17 00:40:03 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/17 01:47:44 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -27,17 +27,10 @@ void	ft_coolor_f(t_data *data, char *line)
 				&& line[i - 1] <= '9') && line[i - 1] != ','
 			&& line[i + 1] != (line[i + 1] >= '0'
 				&& line[i + 1] <= '9'))
-		{
-			printf("ERROR :\n%s\n",
-				"gros nul tu as mis un espace en trop dans le sol");
-			exit(0);
-		}
+			error_handle2(6);
 		if (!(line[i] >= '0' && line[i] <= '9')
 			&& line[i] != ',' && line[i] != ' ')
-		{
-			printf("ERROR :\n%s\n", "gros nooob c'est pas des chiffre ou , ou  ");
-			exit(0);
-		}
+			error_handle2(4);
 		if (line[i] != ' ')
 			line[++count] = line[i];
 		i++;
@@ -49,19 +42,13 @@ void	ft_coolor_f(t_data *data, char *line)
 	while (spliter[count])
 		count++;
 	if (count > 3)
-	{
-		printf("ERROR :\n%s\n", "trop d'argument dans le F");
-		exit(0);
-	}
+		error_handle2(2);
 	data->ref_down = ft_atoi(spliter[0]);
 	while (i < count)
 	{
 		data->down_int[i] = ft_atoi(spliter[i]);
 		if (data->down_int[i] < 0 || data->down_int[i] > 255)
-		{
-			printf("ERROR :\n%s\n", "valeur dans F trop basse ou trop haut");
-			exit(0);
-		}
+			error_handle2(0);
 		i++;
 	}
 	while (i > 0)
@@ -85,17 +72,10 @@ void	ft_coolor_c(t_data *data, char *line)
 				&& line[i - 1] <= '9') && line[i - 1] != ','
 			&& line[i + 1] != (line[i + 1] >= '0'
 				&& line[i + 1] <= '9'))
-		{
-			printf("ERROR :\n%s\n",
-				"gros nul tu as mis un espace en trop dans le plafond");
-			exit(0);
-		}
+			error_handle2(5);
 		if (!(line[i] >= '0' && line[i] <= '9')
 			&& line[i] != ',' && line[i] != ' ')
-		{
-			printf("ERROR :\n%s\n", "gros nooob c'est pas des chiffre ou , ou  ");
-			exit(0);
-		}
+			error_handle2(3);
 		if (line[i] != ' ')
 			line[++count] = line[i];
 		i++;
@@ -107,19 +87,13 @@ void	ft_coolor_c(t_data *data, char *line)
 	while (spliter[count])
 		count++;
 	if (count > 3)
-	{
-		printf("ERROR :\n%s\n", "trop d'argument dans le C");
-		exit(0);
-	}
+		error_handle2(1);
 	data->ref_up = ft_atoi(spliter[0]);
 	while (i < count)
 	{
 		data->up_int[i] = ft_atoi(spliter[i]);
 		if (data->down_int[i] < 0 || data->down_int[i] > 255)
-		{
-			printf("ERROR :\n%s\n", "valeur dans C trop basse ou trop haut");
-			exit(0);
-		}
+			error_handle(9);
 		i++;
 	}
 	while (i > 0)
@@ -132,7 +106,6 @@ char	*ft_load_img(char *line, char *path)
 	int	i;
 	int	count;
 
-	i = 0;
 	i = strlen(line);
 	path = malloc(sizeof(char) * 993);
 	count = -1;
@@ -140,7 +113,7 @@ char	*ft_load_img(char *line, char *path)
 		i--;
 	if (line[i] != '.' || line[i + 1] != 'x' || line[i + 2] != 'p'
 		|| line[i + 3] != 'm')
-		exit(0);
+		error_handle(7);
 	i = (i - 1);
 	while (line[i] != '.')
 		i--;
@@ -153,10 +126,7 @@ char	*ft_load_img(char *line, char *path)
 	}
 	path[count + 1] = '\0';
 	if (path == NULL)
-	{
-		printf("%s\n", "probleme dans le path des image");
-		exit(0);
-	}
+		error_handle(8);
 	return (path);
 }
 
