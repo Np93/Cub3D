@@ -1,24 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vrimap.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/17 00:29:37 by nhirzel           #+#    #+#             */
+/*   Updated: 2022/08/17 00:40:03 by nhirzel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "cub3D.h"
 
 void	ft_coolor_f(t_data *data, char *line)
 {
-	int	i;
-	int	count;
-	char 	**spliter;
+	int		i;
+	int		count;
+	char	**spliter;
 
 	i = 0;
 	count = -1;
-	printf("%s\n", line);
 	while (!(line[i] >= '0' && line[i] <= '9'))
 		i++;
-	while (line[i] != '\0') //&& line[i] != ' ')
+	while (line[i] != '\0')
 	{
-		if (line[i] == ' ' && line[i - 1] != (line[i - 1] >= '0' && line[i - 1] <= '9') && line[i - 1] != ',' && line[i + 1] != (line[i + 1] >= '0' && line[i + 1] <= '9'))
+		if (line[i] == ' ' && line[i - 1] != (line[i - 1] >= '0'
+				&& line[i - 1] <= '9') && line[i - 1] != ','
+			&& line[i + 1] != (line[i + 1] >= '0'
+				&& line[i + 1] <= '9'))
 		{
-			printf("ERROR :\n%s\n", "gros nul tu as mis un espace en trop dans le sol ou le plafond");
+			printf("ERROR :\n%s\n",
+				"gros nul tu as mis un espace en trop dans le sol");
 			exit(0);
 		}
-		if (!(line[i] >= '0' && line[i] <= '9') && line[i] != ',' && line[i] != ' ')
+		if (!(line[i] >= '0' && line[i] <= '9')
+			&& line[i] != ',' && line[i] != ' ')
 		{
 			printf("ERROR :\n%s\n", "gros nooob c'est pas des chiffre ou , ou  ");
 			exit(0);
@@ -28,7 +43,6 @@ void	ft_coolor_f(t_data *data, char *line)
 		i++;
 	}
 	line[count + 1] = '\0';
-	printf("%s\n", line);
 	spliter = ft_split(line, ',');
 	i = 0;
 	count = 0;
@@ -36,20 +50,18 @@ void	ft_coolor_f(t_data *data, char *line)
 		count++;
 	if (count > 3)
 	{
-		printf("ERROR :\n%s\n", "trop d'argument dans le f ou c");
+		printf("ERROR :\n%s\n", "trop d'argument dans le F");
 		exit(0);
 	}
 	data->ref_down = ft_atoi(spliter[0]);
 	while (i < count)
 	{
 		data->down_int[i] = ft_atoi(spliter[i]);
-		printf("%d\n", data->down_int[i]);
 		if (data->down_int[i] < 0 || data->down_int[i] > 255)
 		{
-			printf("ERROR :\n%s\n", "valeur de c ou f trop basse ou trop haut");
+			printf("ERROR :\n%s\n", "valeur dans F trop basse ou trop haut");
 			exit(0);
 		}
-		printf("%d\n", data->down_int[i]);
 		i++;
 	}
 	while (i > 0)
@@ -59,23 +71,27 @@ void	ft_coolor_f(t_data *data, char *line)
 
 void	ft_coolor_c(t_data *data, char *line)
 {
-	int	i;
-	int	count;
-	char 	**spliter;
+	int		i;
+	int		count;
+	char	**spliter;
 
 	i = 0;
 	count = -1;
-	printf("%s\n", line);
 	while (!(line[i] >= '0' && line[i] <= '9'))
 		i++;
-	while (line[i] != '\0')// && line[i] != ' ')
+	while (line[i] != '\0')
 	{
-		if (line[i] == ' ' && line[i - 1] != (line[i - 1] >= '0' && line[i - 1] <= '9') && line[i - 1] != ',' && line[i + 1] != (line[i + 1] >= '0' && line[i + 1] <= '9'))
+		if (line[i] == ' ' && line[i - 1] != (line[i - 1] >= '0'
+				&& line[i - 1] <= '9') && line[i - 1] != ','
+			&& line[i + 1] != (line[i + 1] >= '0'
+				&& line[i + 1] <= '9'))
 		{
-			printf("ERROR :\n%s\n", "gros nul tu as mis un espace en trop dans le sol ou le plafond");
+			printf("ERROR :\n%s\n",
+				"gros nul tu as mis un espace en trop dans le plafond");
 			exit(0);
 		}
-		if (!(line[i] >= '0' && line[i] <= '9') && line[i] != ',' && line[i] != ' ')
+		if (!(line[i] >= '0' && line[i] <= '9')
+			&& line[i] != ',' && line[i] != ' ')
 		{
 			printf("ERROR :\n%s\n", "gros nooob c'est pas des chiffre ou , ou  ");
 			exit(0);
@@ -85,7 +101,6 @@ void	ft_coolor_c(t_data *data, char *line)
 		i++;
 	}
 	line[count + 1] = '\0';
-	printf("%s\n", line);
 	spliter = ft_split(line, ',');
 	i = 0;
 	count = 0;
@@ -93,18 +108,16 @@ void	ft_coolor_c(t_data *data, char *line)
 		count++;
 	if (count > 3)
 	{
-		printf("ERROR :\n%s\n", "trop d'argument dans le f ou c");
+		printf("ERROR :\n%s\n", "trop d'argument dans le C");
 		exit(0);
 	}
-//	printf("%s\n", spliter[0]);
 	data->ref_up = ft_atoi(spliter[0]);
 	while (i < count)
 	{
 		data->up_int[i] = ft_atoi(spliter[i]);
-		printf("%d\n", data->up_int[i]);
 		if (data->down_int[i] < 0 || data->down_int[i] > 255)
 		{
-			printf("ERROR :\n%s\n", "valeur de c ou f trop basse ou trop haut");
+			printf("ERROR :\n%s\n", "valeur dans C trop basse ou trop haut");
 			exit(0);
 		}
 		i++;
@@ -134,7 +147,7 @@ char	*ft_load_img(char *line, char *path)
 	while (line[i] != '\0')
 	{
 		if (line[i] == ' ')
-			break;
+			break ;
 		path[++count] = line[i];
 		i++;
 	}
@@ -175,11 +188,10 @@ char	*get_img(t_data *data, char *line)
 
 void	get_wall1(t_data *data)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	char	*temp;
-	int	i;
-//	int	z;
+	int		i;
 
 	y = -1;
 	data->ref_down = -1;
@@ -188,8 +200,10 @@ void	get_wall1(t_data *data)
 	temp = malloc(sizeof(char) * 993);
 	while (data->map_game[++y] != NULL)
 	{
-		if (data->path_n != NULL && data->path_s != NULL && data->path_w != NULL
-			&& data->path_e != NULL && data->up_int[0] == data->ref_up && data->down_int[0] == data->ref_down)
+		if (data->path_n != NULL && data->path_s != NULL
+			&& data->path_w != NULL && data->path_e != NULL
+			&& data->up_int[0] == data->ref_up
+			&& data->down_int[0] == data->ref_down)
 		{
 			if ((++(data->count)) == 1)
 				data->count_y = y;
@@ -198,13 +212,13 @@ void	get_wall1(t_data *data)
 		x = 0;
 		while (data->map_game[y][x] != '\0')
 		{
-		if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
-				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W' 
+			if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
+				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W'
 				|| data->map_game[y][x] == 'C' || data->map_game[y][x] == 'F')
 			{
-//				z = x;
 				i = -1;
-				while (data->map_game[y][x] != '\n' && data->map_game[y][x] != '\0')
+				while (data->map_game[y][x] != '\n'
+					&& data->map_game[y][x] != '\0')
 				{
 					temp[++i] = data->map_game[y][x];
 					x++;
