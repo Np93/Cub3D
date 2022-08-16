@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 17:11:09 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/14 04:44:54 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 00:03:45 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -88,7 +88,7 @@ int	deal_key(int key, t_data *data)
 	colliwall(key, data);
 	deal_key2(key, data);
 	if (key == 53)
-		exiter();
+		exiter(data);
 	key_pov(data, key);
 	settings_keys(key, data);
 	mlx_clear_window(data->mlx, data->win);

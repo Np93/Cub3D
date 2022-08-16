@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/14 04:49:48 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 00:04:17 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	start(t_data *data)
 	print_info_str(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->fps1, 780, 720);
 	mlx_hook(data->win, 2, 1L << 1, deal_key, data);
-	mlx_hook(data->win, 17, 0, exiter, NULL);
+	mlx_hook(data->win, 17, 0, exiter, data);
 	mlx_loop(data->mlx);
 	return ;
 }

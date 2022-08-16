@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:56:39 by rmonney           #+#    #+#             */
-/*   Updated: 2022/06/22 19:32:41 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/16 22:48:09 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3D.h"
@@ -40,13 +40,25 @@ char	**get_map(char *map_path)//, int size)
 void	get_angle_pov(t_data *data, char dir)
 {
 	if (dir == 'N')
+	{
 		data->look = (PI / 2);
+		data->init_dir = 'n';
+	}
 	else if (dir == 'S')
+	{
 		data->look = ((PI * 3) / 2);
+		data->init_dir = 's';
+	}
 	else if (dir == 'E')
+	{
 		data->look = 0;
+		data->init_dir = 'e';
+	}
 	else if (dir == 'W')
+	{
 		data->look = PI;
+		data->init_dir = 'w';
+	}
 }
 
 void	map_close(t_data *data, int y, int x, int count)
@@ -129,4 +141,5 @@ void	get_map_infos(t_data *data)
 	}
 	data->map_xsize = (i - 1);
 	data->map_ysize = y;
+
 }

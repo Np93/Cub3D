@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/07/14 04:56:19 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 00:03:28 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -213,7 +213,7 @@ void	print_wall(t_data *data);
 void	print_wall2(t_data *data, t_minimap *map);
 void	print_floor(t_data *data);
 void	print_floor2(t_data *data, t_minimap *map);
-int		exiter(void);
+int		exiter(t_data *data);
 int		deal_key(int key, t_data *data);
 void	values_correction(t_data *data);
 void	values_correction2(t_data *data);
