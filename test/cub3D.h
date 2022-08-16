@@ -6,7 +6,11 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/17 00:40:13 by rmonney          ###   ########.fr       */
+=======
+/*   Updated: 2022/08/17 01:16:46 by nhirzel          ###   ########.fr       */
+>>>>>>> 5d4c383f47c2e447d5c757b3879ac53df33d7b47
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -242,7 +246,12 @@ char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data);
 void	shoot(t_data *data);
 void	print_info_str(t_data *data);
+<<<<<<< HEAD
 int		empty_image(t_data *data);
 void	remake_map(t_data *data);
+=======
+void	error_handle2(int error);
+void	error_handle3(int error);
+>>>>>>> 5d4c383f47c2e447d5c757b3879ac53df33d7b47
 
 #endif

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_game.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/17 00:47:56 by nhirzel           #+#    #+#             */
+/*   Updated: 2022/08/17 01:38:14 by nhirzel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "cub3D.h"
 
 char	*load_def_map(t_data *data, char *line)
@@ -7,21 +18,11 @@ char	*load_def_map(t_data *data, char *line)
 
 	i = 0;
 	rep = 0;
-	while (line[i] != '\0')
-	{
-		printf("%c", line[i]);
-		i++;
-	}
-	printf("\n");
-	i = 0;
 	if (data->rep == 0)
 		if (line[i] == '\0' || line[i] == '\n' || line == NULL)
 			rep = 1;
 	if (data->rep == 1 && (line == NULL || line[0] == '\n' || line[0] == '\0'))
-	{
-		printf("ERROR :\n%s\n", "map pas correcte, ligne vide dans la map");
-			exit(0);
-	}
+		error_handle2(7);
 	if (rep == 0)
 	{
 		(data->count)++;
@@ -29,7 +30,7 @@ char	*load_def_map(t_data *data, char *line)
 		data->rep = 1;
 	}
 	i = strlen(line);
-	while (i >=  0)
+	while (i >= 0)
 	{
 		line[i] = '\0';
 		i--;
@@ -47,16 +48,13 @@ void	set_count_y(t_data *data)
 
 void	get_map_game(t_data *data)
 {
-	int	x;
-//	int	count;
+	int		x;
 	char	*temp;
-	int	i;
+	int		i;
 
-//	y = -1;
 	data->count = -1;
 	data->map = malloc(sizeof(char *) * 999);
 	temp = malloc(sizeof(char) * 993);
-//	printf("%s\n", "fuck");
 	while (data->map_game[data->count_y] != NULL)
 	{
 		x = 0;
@@ -70,8 +68,6 @@ void	get_map_game(t_data *data)
 		temp = load_def_map(data, temp);
 		(data->count_y)++;
 	}
-//	printf("%s\n", "doris");
 	set_count_y(data);
 	free(temp);
-//	(data->count_y)--;
 }
