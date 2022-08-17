@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/08/17 00:39:45 by rmonney          ###   ########.fr        #
+#    Updated: 2022/08/17 04:50:41 by nhirzel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS		= get_next_line.c\
 			  ft_atoi.c\
 			  get_map_game.c\
 			  remake_map.c\
+			  ft_coolor.c\
 
 OBJS		= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 01:50:49 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 05:59:46 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ int	main(int ac, char **av)
 		|| av[1][i - 3] != 'c' || av[1][i - 4] != '.')
 		error_handle(1);
 	data.map_game = get_map(av[1]);
+	data.ref_down = -1;
+	data.ref_up = -1;
+	data.count = 0;
 	get_wall1(&data);
 	get_map_game(&data);
 	get_map_infos(&data);
-	printf("%s\n", data.path_n);
+	if (data.player == 0)
+		error_handle2(9);
+	if (data.player != 1)
+		error_handle2(8);
 	start(&data);
 	return (0);
 }

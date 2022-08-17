@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 01:54:26 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/17 05:51:13 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -246,5 +246,7 @@ int		empty_image(t_data *data);
 void	remake_map(t_data *data);
 void	error_handle2(int error);
 void	error_handle3(int error);
+void	ft_coolor_c(t_data *data, char *line);
+void	ft_coolor_f(t_data *data, char *line);
 
 #endif
