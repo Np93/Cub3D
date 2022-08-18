@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 #include "cub3D.h"
 
-char	**get_map(char *map_path)
+char	**get_map(char *map_path, int size)
 {
 	char	*tmp;
 	int		fd;
 	int		i;
 	char	**ret;
 
-	ret = malloc(sizeof(char *) * 999);
+	if (size <= 0)
+		error_handle(5);
+	ret = malloc(sizeof(char *) * (size + 1));
 	if (!ret)
 		error_handle(5);
 	fd = open(map_path, O_RDONLY);

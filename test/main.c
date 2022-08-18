@@ -14,23 +14,18 @@
 
 int	main(int ac, char **av)
 {
-	int		i;
+	int		height;
+	int		width;
 	t_data	data;
 
-	i = 0;
 	if (ac != 2)
 		error_handle(0);
-	while (av[1][i] != '\0')
-		i++;
-	if (av[1][i - 1] != 'b' || av[1][i - 2] != 'u'
-		|| av[1][i - 3] != 'c' || av[1][i - 4] != '.')
-		error_handle(1);
-	data.map_game = get_map(av[1]);
-	data.ref_down = -1;
-	data.ref_up = -1;
-	data.count = 0;
-	get_wall1(&data);
-	get_map_game(&data);
+	check_ber(&data, av[1]);
+	height = count_lign(av[1]);
+	data.map_game = get_map(av[1], height);
+	width = count_col(&data);
+	get_wall(&data, width);
+	get_map_game(&data, width, height);
 	get_map_infos(&data);
 	if (data.player == 0)
 		error_handle2(9);

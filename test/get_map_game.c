@@ -46,15 +46,15 @@ void	set_count_y(t_data *data)
 	(data->count_y)--;
 }
 
-void	get_map_game(t_data *data)
+void	get_map_game(t_data *data, int width, int h)
 {
 	int		x;
 	char	*temp;
 	int		i;
 
 	data->count = -1;
-	data->map = malloc(sizeof(char *) * 999);
-	temp = malloc(sizeof(char) * 993);
+	data->map = malloc(sizeof(char *) * ((h - (data->count_y)) + 1));
+	temp = malloc(sizeof(char) * (width + 1));
 	while (data->map_game[data->count_y] != NULL)
 	{
 		x = 0;

@@ -80,7 +80,7 @@ void	get_wall2(t_data *data, int y)
 	}
 }
 
-void	get_wall1(t_data *data)
+void	get_wall(t_data *data, int width)
 {
 	int		x;
 	int		y;
@@ -88,7 +88,7 @@ void	get_wall1(t_data *data)
 	int		i;
 
 	y = -1;
-	temp = malloc(sizeof(char) * 993);
+	temp = malloc(sizeof(char) * (width + 1));
 	while (data->map_game[++y] != NULL)
 	{
 		get_wall2(data, y);

@@ -33,6 +33,7 @@ SRCS		= get_next_line.c\
 			  get_map_game.c\
 			  remake_map.c\
 			  ft_coolor.c\
+			  setting.c\
 
 OBJS		= ${SRCS:.c=.o}
 
