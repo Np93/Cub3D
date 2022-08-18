@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/08/18 22:46:39 by rmonney          ###   ########.fr        #
+#    Updated: 2022/08/18 23:08:15 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ all:		${NAME}
 good:		${NAME} clean
 
 clean:		
+			make clean -C ${MLXPATH}
 			${RM} ${OBJS}
 
 fclean:		clean

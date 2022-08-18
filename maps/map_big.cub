@@ -1,7 +1,7 @@
-NO ./sprites/WN.xpm
-SO ./sprites/WS.xpm
-WE ./sprites/WW.xpm
-EA ./sprites/WE.xpm
+NO ./sprites/W1.xpm
+SO ./sprites/W2.xpm
+WE ./sprites/W3.xpm
+EA ./sprites/W4.xpm
 
 F 20,20,20
 C 220,20,20

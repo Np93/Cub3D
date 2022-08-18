@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/18 22:37:25 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/18 23:14:08 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -49,16 +49,10 @@ char	*ft_strdup(char *src)
 
 int	exiter(t_data *data)
 {
-//	free(data->end.img);
-//	free(data->w.img);
 	mlx_destroy_image(data->mlx, data->end.img);
 	mlx_destroy_image(data->mlx, data->w.img);
-//	free(data->end.img);
-//	free(data->w.img);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_window(data->mlx, data->win);
-//	while (1)
-//	{}
 	exit(0);
 	return (0);
 }
