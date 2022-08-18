@@ -6,7 +6,7 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:47:56 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/18 22:44:45 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/19 00:24:47 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -68,6 +68,7 @@ void	get_map_game(t_data *data, int width, int h)
 		temp = load_def_map(data, temp);
 		(data->count_y)++;
 	}
+	data->map[(data->count) + 1] = NULL;
 	set_count_y(data);
 	free(temp);
 }
