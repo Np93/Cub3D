@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:05:15 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/17 22:44:58 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/22 23:56:51 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -42,20 +42,14 @@ void	tex_init(t_data *data)
 {
 	data->north.img = mlx_xpm_file_to_image(data->mlx, data->path_n,
 			&data->north.x, &data->north.y);
-	data->north.data_addr = mlx_get_data_addr(data->north.img,
-			&data->north.bpp, &data->north.size_line, &data->north.endian);
 	data->south.img = mlx_xpm_file_to_image(data->mlx, data->path_s,
 			&data->south.x, &data->south.y);
-	data->south.data_addr = mlx_get_data_addr(data->south.img,
-			&data->south.bpp, &data->south.size_line, &data->south.endian);
 	data->east.img = mlx_xpm_file_to_image(data->mlx, data->path_e,
 			&data->east.x, &data->east.y);
-	data->east.data_addr = mlx_get_data_addr(data->east.img,
-			&data->east.bpp, &data->east.size_line, &data->east.endian);
 	data->west.img = mlx_xpm_file_to_image(data->mlx, data->path_w,
 			&data->west.x, &data->west.y);
-	data->west.data_addr = mlx_get_data_addr(data->west.img,
-			&data->west.bpp, &data->west.size_line, &data->west.endian);
+	empty_image(data);
+	tex_init3(data);
 	data->end.img = malloc(RESX * RESY * 4);
 	data->end.img = mlx_new_image(data->end.img, RESX, RESY);
 	data->end.data_addr = mlx_get_data_addr(data->end.img, &data->end.bpp,

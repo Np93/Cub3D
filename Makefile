@@ -6,7 +6,7 @@
 #    By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/03 15:17:33 by rmonney           #+#    #+#              #
-#    Updated: 2022/08/18 23:08:15 by rmonney          ###   ########.fr        #
+#    Updated: 2022/08/22 23:34:07 by rmonney          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS		= utils/get_next_line.c\
 			  utils/utils1.c\
 			  srcs/get_map.c\
 			  srcs/init.c\
+			  srcs/init2.c\
 			  srcs/minimap.c\
 			  srcs/minimap2.c\
 			  srcs/minimap3.c\
@@ -62,7 +63,8 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
-good:		${NAME} clean
+good:		${NAME}
+			${RM} ${OBJS}
 
 clean:		
 			make clean -C ${MLXPATH}

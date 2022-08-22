@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/18 22:40:04 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 00:07:12 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -207,6 +207,7 @@ void	start(t_data *data);
 void	set_ray(t_data *data);
 void	set_ray2(t_data *data);
 void	mlx_initer(t_data *data);
+void	tex_init3(t_data *data);
 void	print_background(t_data *data);
 void	print_minimap(t_data *data);
 void	print_wall(t_data *data);
@@ -242,7 +243,7 @@ char	**ft_split(char *s, char c);
 void	get_map_game(t_data *data, int width, int h);
 void	shoot(t_data *data);
 void	print_info_str(t_data *data);
-int		empty_image(t_data *data);
+void	empty_image(t_data *data);
 void	remake_map(t_data *data);
 void	error_handle2(int error);
 void	error_handle3(int error);
