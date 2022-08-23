@@ -6,12 +6,31 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 04:49:02 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/17 22:44:28 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:14:42 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
 
-void	ft_coolor_f2(t_data *data, char *line)
+void	count_info_map(t_data *data, int nbr)
+{
+	if (nbr == 1)
+		(data->token_n)++;
+	if (nbr == 2)
+		(data->token_s)++;
+	if (nbr == 3)
+		(data->token_w)++;
+	if (nbr == 4)
+		(data->token_e)++;
+	if (nbr == 5)
+		(data->token_c)++;
+	if (nbr == 6)
+		(data->token_f)++;
+	if (data->token_n == 2 || data->token_s == 2 || data->token_w == 2
+		|| data->token_e == 2 || data->token_c == 2 || data->token_f == 2)
+		error_handle3(7);
+}
+
+void	ft_coolor_f2(t_data *data, char *line, int nbr)
 {
 	char	**spliter;
 	int		i;
@@ -37,9 +56,10 @@ void	ft_coolor_f2(t_data *data, char *line)
 	while (i > 0)
 		free(spliter[--i]);
 	free(spliter);
+	count_info_map(data, nbr);
 }
 
-void	ft_coolor_f(t_data *data, char *line)
+void	ft_coolor_f(t_data *data, char *line, int nbr)
 {
 	int		i;
 	int		count;
@@ -63,10 +83,10 @@ void	ft_coolor_f(t_data *data, char *line)
 		i++;
 	}
 	line[count + 1] = '\0';
-	ft_coolor_f2(data, line);
+	ft_coolor_f2(data, line, nbr);
 }
 
-void	ft_coolor_c2(t_data *data, char *line)
+void	ft_coolor_c2(t_data *data, char *line, int nbr)
 {
 	char	**spliter;
 	int		i;
@@ -92,9 +112,10 @@ void	ft_coolor_c2(t_data *data, char *line)
 	while (i > 0)
 		free(spliter[--i]);
 	free(spliter);
+	count_info_map(data, nbr);
 }
 
-void	ft_coolor_c(t_data *data, char *line)
+void	ft_coolor_c(t_data *data, char *line, int nbr)
 {
 	int		i;
 	int		count;
@@ -118,5 +139,5 @@ void	ft_coolor_c(t_data *data, char *line)
 		i++;
 	}
 	line[count + 1] = '\0';
-	ft_coolor_c2(data, line);
+	ft_coolor_c2(data, line, nbr);
 }

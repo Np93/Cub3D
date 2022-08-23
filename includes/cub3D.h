@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:20:40 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/23 00:07:12 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:01:50 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CUB3D_H
@@ -78,6 +78,12 @@ typedef struct s_data {
 	int		ref_up;
 	int		rep;
 	int		player;
+	int		token_n;
+	int		token_s;
+	int		token_e;
+	int		token_w;
+	int		token_c;
+	int		token_f;
 	char	up_char[3];
 	char	down_char[3];
 	void	*w_mmap;
@@ -247,10 +253,11 @@ void	empty_image(t_data *data);
 void	remake_map(t_data *data);
 void	error_handle2(int error);
 void	error_handle3(int error);
-void	ft_coolor_c(t_data *data, char *line);
-void	ft_coolor_f(t_data *data, char *line);
+void	ft_coolor_c(t_data *data, char *line, int nbr);
+void	ft_coolor_f(t_data *data, char *line, int nrb);
 int		count_col(t_data *data);
 int		count_lign(char *dos);
 void	check_ber(t_data *data, char *av);
+void	count_info_map(t_data *data, int nbr);
 
 #endif

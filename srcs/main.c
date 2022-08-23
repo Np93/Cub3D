@@ -6,10 +6,17 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/22 23:57:23 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:19:29 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
+
+void	count_info_map2(t_data *data)
+{
+	if (data->token_n == 0 || data->token_s == 0 || data->token_w == 0
+		|| data->token_e == 0 || data->token_c == 0 || data->token_f == 0)
+		error_handle3(8);
+}
 
 int	main(int ac, char **av)
 {
@@ -24,6 +31,7 @@ int	main(int ac, char **av)
 	data.map_game = get_map(av[1], height);
 	width = count_col(&data);
 	get_wall(&data, width);
+	count_info_map2(&data);
 	get_map_game(&data, width, height);
 	get_map_infos(&data);
 	if (data.player == 0)

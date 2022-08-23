@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 19:18:41 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/23 00:17:17 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:18:54 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -74,8 +74,12 @@ void	error_handle3(int error)
 	if (error == 4)
 		printf("Error\nargument are missing in F\n");
 	if (error == 5)
-		printf("Error\ncharacter not allowed in map info\n");
+		printf("Error\ncharacter not allowed in map infos\n");
 	if (error == 6)
-		printf("Error\ndescription of the maze before the info\n");
+		printf("Error\ndescription of the maze before the infos\n");
+	if (error == 7)
+		printf("Error\ndouble in map informations\n");
+	if (error == 8)
+		printf("Error\nmissing map info\n");
 	exit(0);
 }
