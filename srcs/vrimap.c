@@ -6,12 +6,12 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:29:37 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/23 02:25:38 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:12:10 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
 
-char	*ft_load_img(char *line, char *path)
+char	*ft_load_img(t_data *data, char *line, char *path, int nbr)
 {
 	int	i;
 	int	count;
@@ -31,12 +31,12 @@ char	*ft_load_img(char *line, char *path)
 	{
 		if (line[i] == ' ')
 			break ;
-		path[++count] = line[i];
-		i++;
+		path[++count] = line[i++];
 	}
 	path[count + 1] = '\0';
 	if (path == NULL)
 		error_handle(8);
+	count_info_map(data, nbr);
 	return (path);
 }
 
@@ -72,17 +72,17 @@ char	*get_img(t_data *data, char *line, int count)
 	i = 0;
 	line[count + 1] = '\0';
 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		data->path_n = ft_load_img(line, data->path_n);
+		data->path_n = ft_load_img(data, line, data->path_n, 1);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		data->path_s = ft_load_img(line, data->path_s);
+		data->path_s = ft_load_img(data, line, data->path_s, 2);
 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-		data->path_w = ft_load_img(line, data->path_w);
+		data->path_w = ft_load_img(data, line, data->path_w, 3);
 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-		data->path_e = ft_load_img(line, data->path_e);
+		data->path_e = ft_load_img(data, line, data->path_e, 4);
 	else if (line[i] == 'C')
-		ft_coolor_c(data, line);
+		ft_coolor_c(data, line, 5);
 	else if (line[i] == 'F')
-		ft_coolor_f(data, line);
+		ft_coolor_f(data, line, 6);
 	else
 		check_badmap(data, line);
 	i = strlen(line);
