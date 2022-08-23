@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 19:18:41 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/23 03:18:54 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/23 03:57:07 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -68,7 +68,7 @@ void	error_handle3(int error)
 	if (error == 1)
 		printf("Error\nplayer outside the map\n");
 	if (error == 2)
-		printf("Error\nplayer outside the map\n");
+		printf("Error\nmap not closed\n");
 	if (error == 3)
 		printf("Error\nargument are missing in C\n");
 	if (error == 4)
