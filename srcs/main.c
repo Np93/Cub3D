@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 17:16:23 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/18 23:43:50 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/22 23:57:23 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -48,11 +48,6 @@ void	start(t_data *data)
 	remake_map(data);
 	init_info_str(data);
 	mlx_initer(data);
-	if (empty_image(data))
-	{
-		printf("ERROR \nWrong texture path\n");
-		exit(0);
-	}
 	set_ray(data);
 	raycast(data);
 	print_minimap(data);

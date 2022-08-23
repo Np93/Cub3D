@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:20:08 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/18 23:14:08 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 00:10:09 by rmonney          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -70,15 +70,29 @@ void	print_info_str(t_data *data)
 		mlx_string_put(data->mlx, data->win, 957, 544, 0x00FF00, "o");
 }
 
-int	empty_image(t_data *data)
+void	empty_image(t_data *data)
 {
+	int	nope;
+
+	nope = 0;
 	if (data->north.img == NULL)
-		return (1);
+		nope++;
 	if (data->south.img == NULL)
-		return (1);
+		nope++;
 	if (data->east.img == NULL)
-		return (1);
+		nope++;
 	if (data->west.img == NULL)
-		return (1);
-	return (0);
+		nope++;
+	if (nope != 0)
+	{
+		printf("ERROR\nWrong path to texture\n");
+		exit(0);
+	}
+	if (data->north.x != 64 || data->north.y != 64 || data->south.x != 64
+		|| data->south.y != 64 || data->east.x != 64 || data->east.y != 64
+		|| data->west.x != 64 || data->west.y != 64)
+	{
+		printf("ERROR\nWrong texture format\n");
+		exit(0);
+	}
 }
