@@ -6,7 +6,7 @@
 /*   By: rmonney <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 22:45:03 by rmonney           #+#    #+#             */
-/*   Updated: 2022/08/18 22:45:12 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/22 23:27:16 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -50,6 +50,7 @@ void	check_ber(t_data *data, char *av)
 	data->ref_down = -1;
 	data->ref_up = -1;
 	data->count = 0;
+	data->count_y = -2;
 }
 
 int	count_col(t_data *data)

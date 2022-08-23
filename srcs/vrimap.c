@@ -6,7 +6,7 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:29:37 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/18 22:43:51 by rmonney          ###   ########.fr       */
+/*   Updated: 2022/08/23 02:07:25 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -40,6 +40,31 @@ char	*ft_load_img(char *line, char *path)
 	return (path);
 }
 
+void	check_badmap(t_data *data, char *line)
+{
+	int	i;
+
+	i = 0;
+	if (data->count_y == -2)
+	{
+		while (line[i] != '\0')
+		{
+			if (line[i] == '1')
+			{
+				while (line[i] == '0' || line[i] == '1')
+				{
+					if (line[i + 1] == '\0' || line[i + 1] == '\n')
+						error_handle3(6);
+					i++;
+				}
+			}
+			else if (line[i] != ' ')
+				error_handle3(5);
+			i++;
+		}
+	}
+}
+
 char	*get_img(t_data *data, char *line, int count)
 {
 	int	i;
@@ -58,6 +83,8 @@ char	*get_img(t_data *data, char *line, int count)
 		ft_coolor_c(data, line);
 	else if (line[i] == 'F')
 		ft_coolor_f(data, line);
+	else
+		check_badmap(data, line);
 	i = strlen(line);
 	while (i >= 0)
 	{
@@ -95,9 +122,10 @@ void	get_wall(t_data *data, int width)
 		x = -1;
 		while (data->map_game[y][++x] != '\0')
 		{
-			if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
-				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W'
-				|| data->map_game[y][x] == 'C' || data->map_game[y][x] == 'F')
+//			if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
+//				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W'
+//				|| data->map_game[y][x] == 'C' || data->map_game[y][x] == 'F')
+			if (x == 0)
 			{
 				i = -1;
 				while (data->map_game[y][x] != '\n')
