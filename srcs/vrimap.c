@@ -6,7 +6,7 @@
 /*   By: nhirzel <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 00:29:37 by nhirzel           #+#    #+#             */
-/*   Updated: 2022/08/23 02:07:25 by nhirzel          ###   ########.fr       */
+/*   Updated: 2022/08/23 02:25:38 by nhirzel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub3D.h"
@@ -122,9 +122,6 @@ void	get_wall(t_data *data, int width)
 		x = -1;
 		while (data->map_game[y][++x] != '\0')
 		{
-//			if (data->map_game[y][x] == 'N' || data->map_game[y][x] == 'S'
-//				|| data->map_game[y][x] == 'E' || data->map_game[y][x] == 'W'
-//				|| data->map_game[y][x] == 'C' || data->map_game[y][x] == 'F')
 			if (x == 0)
 			{
 				i = -1;
