@@ -49,7 +49,7 @@ void	check_badmap(t_data *data, char *line)
 	{
 		while (line[i] != '\0')
 		{
-			if (line[i] == '1')
+			if (line[i] == '1' || line[i] == '0')
 			{
 				while (line[i] == '0' || line[i] == '1')
 				{
@@ -122,7 +122,7 @@ void	get_wall(t_data *data, int width)
 		x = -1;
 		while (data->map_game[y][++x] != '\0')
 		{
-			if (x == 0)
+			if (data->map_game[y][x] != ' ')
 			{
 				i = -1;
 				while (data->map_game[y][x] != '\n')

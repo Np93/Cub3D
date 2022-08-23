@@ -81,5 +81,7 @@ void	error_handle3(int error)
 		printf("Error\ndouble in map informations\n");
 	if (error == 8)
 		printf("Error\nmissing map info\n");
+	if (error == 9)
+		printf("Error\nno maze in the map\n");
 	exit(0);
 }

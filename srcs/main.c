@@ -31,6 +31,8 @@ int	main(int ac, char **av)
 	data.map_game = get_map(av[1], height);
 	width = count_col(&data);
 	get_wall(&data, width);
+	if (data.count_y == -2)
+		error_handle3(9);
 	count_info_map2(&data);
 	get_map_game(&data, width, height);
 	get_map_infos(&data);
