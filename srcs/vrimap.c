@@ -96,8 +96,8 @@ char	*get_img(t_data *data, char *line, int count)
 
 void	get_wall2(t_data *data, int y)
 {
-	if (data->path_n != NULL && data->path_s != NULL
-		&& data->path_w != NULL && data->path_e != NULL
+	if (data->token_n == 1 && data->token_s == 1
+		&& data->token_w == 1 && data->token_e == 1
 		&& data->up_int[0] == data->ref_up
 		&& data->down_int[0] == data->ref_down)
 	{
