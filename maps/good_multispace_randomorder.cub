@@ -1,10 +1,11 @@
-NO ./sprites/W1.xpm
 
+C 220,20,20
+
+NO ./sprites/W1.xpm
 
 EA      ./sprites/W4.xpm
 
 
-C 220,20,20
 
 SO ./sprites/W2.xpm
 WE                             ./sprites/W3.xpm
